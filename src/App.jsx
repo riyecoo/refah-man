@@ -97,7 +97,7 @@ export default function App() {
   const [hideBal, setHideBal] = useState(() => load('yar-hide', true))
   const [frozen, setFrozen] = useState({})
   const [crowd, setCrowd] = useState(() => load('yar-crowd', false))
-  const [devicePending, setDevicePending] = useState(true)
+  const [devicePending, setDevicePending] = useState(false)
   const [cases, setCases] = useState(seedCases)
   const [consents, setConsents] = useState(seedConsents)
   const [devMode, setDevMode] = useState(() => load('yar-dev', false))
