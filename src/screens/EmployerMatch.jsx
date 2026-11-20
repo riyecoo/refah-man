@@ -20,7 +20,7 @@ export default function EmployerMatch() {
 
   if (done)
     return (
-      <Screen title="پس‌انداز با سهم کارفرما" back={false}>
+      <Screen title="پس‌انداز با سهم کارفرما" back={false} home>
         <div className="ewa-done">
           <img src="./assets/st-success.png" width="130" height="130" alt="" />
           <b>فعال شد؛ از حقوق ۱ دی شروع می‌شود</b>

@@ -22,7 +22,8 @@ import Identity from './screens/Identity'
 import { CloseAccount, Appointment } from './screens/Branchless'
 import ReportCard from './screens/ReportCard'
 import Inflation from './screens/Inflation'
-import { seedCases } from './data/mock'
+import { seedCases, accounts as ACCS, transactions as TXS } from './data/mock'
+import { toFa as faN } from './utils/fa'
 import Consents, { ConsentRequest } from './screens/Consents'
 import IncomePassport from './screens/IncomePassport'
 import EarnedWage from './screens/EarnedWage'
@@ -112,6 +113,25 @@ export default function App() {
   const [devicePending, setDevicePending] = useState(false)
   const [cases, setCases] = useState(seedCases)
   const [consents, setConsents] = useState(seedConsents)
+  // دفتر حساب زنده: هر عملیات موجودی و گردش حساب را واقعاً تغییر می‌دهد
+  const [ledgerVer, setLedgerVer] = useState(0)
+  const [ewaTaken, setEwaTaken] = useState(0)
+  const post = useCallback(({ title, amount, cat = 'transfer', acc = 'cur' }) => {
+    const a = ACCS.find((x) => x.id === acc)
+    if (a) a.balance += amount
+    const d = new Date()
+    TXS.unshift({
+      id: `t${Date.now()}`,
+      date: 'امروز',
+      time: faN(`${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`),
+      title,
+      cat,
+      amount,
+      acc,
+      trace: faN(String(100000 + Math.floor(Math.random() * 899999))),
+    })
+    setLedgerVer((v) => v + 1)
+  }, [])
   const [devMode, setDevMode] = useState(() => load('yar-dev', false))
   useEffect(() => save('yar-dev', devMode), [devMode])
 
@@ -160,6 +180,8 @@ export default function App() {
       push, pop, reset, toast,
       theme, setTheme, simple, setSimple, hideBal, setHideBal, frozen, setFrozen,
       crowd, setCrowd, devicePending, setDevicePending, cases, addCase, consents, setConsents, devMode, setDevMode,
+      screen: phase === 'app' ? stack[stack.length - 1].name : 'login',
+      post, ledgerVer, ewaTaken, setEwaTaken,
       lock: () => setPhase('lock'),
       logout: () => {
         save('yar-registered', false)
@@ -167,7 +189,7 @@ export default function App() {
         setPhase('login')
       },
     }),
-    [push, pop, reset, toast, theme, simple, hideBal, frozen, crowd, devicePending, cases, addCase, consents, devMode],
+    [push, pop, reset, toast, theme, simple, hideBal, frozen, crowd, devicePending, cases, addCase, consents, devMode, stack, phase, post, ledgerVer, ewaTaken],
   )
 
   useEffect(() => {

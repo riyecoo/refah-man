@@ -8,7 +8,7 @@ const MONTHS = ['دی', 'بهمن', 'اسفند', 'فروردین', 'اردیب�
 
 // درمان قسطی: هزینه‌ی درمان بدون چک و ضامن، قسط از حقوق یا مستمری
 export default function MedicalInstallment() {
-  const { addCase, toast } = useApp()
+  const { addCase, toast, reset } = useApp()
   const [n, setN] = useState(6)
   const [otp, setOtp] = useState('')
   const [done, setDone] = useState(false)
@@ -16,7 +16,7 @@ export default function MedicalInstallment() {
 
   if (done)
     return (
-      <Screen title="درمان قسطی" back={false}>
+      <Screen title="درمان قسطی" back={false} home>
         <div className="ip-browser">
           <div className="ip-verified">
             <span className="ip-badge"><Icon name="check" size={22} stroke={2.6} /></span>
@@ -28,9 +28,15 @@ export default function MedicalInstallment() {
           <div className="ip-row"><span>کسر از</span><b>حقوق یا مستمری، روز ۱ هر ماه</b></div>
           <div className="ip-hidden"><Icon name="info" size={16} /> بدون چک، بدون ضامن، بدون رفتن به شعبه.</div>
         </div>
-        <Btn className="block" onClick={() => toast('رسید ذخیره شد')}>
-          <Icon name="download" size={18} /> رسید
-        </Btn>
+        <div className="row2">
+          <Btn kind="soft" onClick={() => toast('رسید ذخیره شد')}>
+            <Icon name="download" size={18} /> رسید
+          </Btn>
+          <Btn kind="soft" onClick={() => reset('cases')}>
+            <Icon name="box" size={18} /> پرونده‌ها
+          </Btn>
+        </div>
+        <Btn className="block" onClick={() => reset('home')}>بازگشت به خانه</Btn>
       </Screen>
     )
 

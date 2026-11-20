@@ -10,7 +10,7 @@ const FEE = 0.012 // کارمزد سالانه‌ی ضمانت‌نامه (نم�
 
 // ودیعه‌ی بانکی: به‌جای پول رهن نقد، بانک از روی سابقه‌ی حقوق ضمانت‌نامه می‌دهد
 export default function RentGuarantee() {
-  const { addCase, toast } = useApp()
+  const { addCase, toast, reset } = useApp()
   const [amt, setAmt] = useState(300000000)
   const [owner, setOwner] = useState('محمود کریمی')
   const [months, setMonths] = useState(12)
@@ -70,6 +70,7 @@ export default function RentGuarantee() {
         <Btn kind="ghost" className="block" onClick={() => setStep(2)}>
           ببینید صاحبخانه چه می‌بیند
         </Btn>
+        <Btn className="block" style={{ marginTop: 10 }} onClick={() => reset('home')}>بازگشت به خانه</Btn>
       </Screen>
     )
 

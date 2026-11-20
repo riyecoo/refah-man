@@ -95,7 +95,7 @@ function detect(raw) {
 const KIND_LABEL = { card: 'شماره کارت', iban: 'شماره شبا', acc: 'شماره حساب رفاه' }
 
 export default function Transfer({ to }) {
-  const { reset } = useApp()
+  const { reset, post } = useApp()
   const pre = contacts.find((c) => c.id === to)
   const [step, setStep] = useState(pre ? 1 : 0)
   const [dest, setDest] = useState(pre ? { ...pre, kind: 'card' } : null)
@@ -159,6 +159,7 @@ export default function Transfer({ to }) {
     if (desc) rows.splice(5, 0, ['توضیح', desc])
     if (repeat) rows.splice(5, 0, ['تکرار', 'هر ماه همین روز'])
     const held = guard && delay
+    if (!held) post({ title: `انتقال به ${dest.full}`, amount: -(amt + (m.fee || 0)), cat: 'transfer', acc: acc.id })
     reset('receipt', {
       title: held ? 'انتقال ثبت شد' : 'انتقال موفق',
       amount: amt,

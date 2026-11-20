@@ -19,7 +19,7 @@ const FOR = [
 
 // پاسپورت حقوق: به‌جای ضامن و چک؛ بانک گواهی می‌دهد، عدد دقیق و گردش حساب لو نمی‌رود
 export default function IncomePassport() {
-  const { toast } = useApp()
+  const { toast, reset } = useApp()
   const [show, setShow] = useState({ band: true, history: true, debt: true, job: false })
   const [who, setWho] = useState('rent')
   const [otp, setOtp] = useState('')
@@ -84,6 +84,7 @@ export default function IncomePassport() {
         <Btn kind="ghost" className="block" onClick={() => setStep(2)}>
           ببینید گیرنده چه می‌بیند
         </Btn>
+        <Btn className="block" style={{ marginTop: 10 }} onClick={() => reset('home')}>بازگشت به خانه</Btn>
       </Screen>
     )
 

@@ -8,7 +8,7 @@ const MONTHS = ['دی', 'بهمن', 'اسفند', 'فروردین', 'اردیب�
 
 // قرض‌نامه‌ی دوستانه: قرض بین دوست و فامیل، با سند و کسر خودکار قسط در روز حقوق
 export default function P2PLoan() {
-  const { toast } = useApp()
+  const { toast, post, reset, addCase } = useApp()
   const [to, setTo] = useState(contacts[3].id)
   const [role, setRole] = useState('lend') // lend: من قرض می‌دهم، borrow: من قرض می‌گیرم
   const [amt, setAmt] = useState(10000000)
@@ -20,7 +20,7 @@ export default function P2PLoan() {
 
   if (done)
     return (
-      <Screen title="قرض‌نامه" back={false}>
+      <Screen title="قرض‌نامه" back={false} home>
         <div className="p2p-doc">
           <div className="p2p-head">
             <Icon name="doc" size={20} />
@@ -39,6 +39,7 @@ export default function P2PLoan() {
         <Btn kind="soft" className="block" onClick={() => toast('سند PDF ذخیره شد')}>
           <Icon name="download" size={18} /> دریافت سند
         </Btn>
+        <Btn className="block" style={{ marginTop: 10 }} onClick={() => reset('home')}>بازگشت به خانه</Btn>
       </Screen>
     )
 
@@ -97,6 +98,8 @@ export default function P2PLoan() {
         className="block"
         disabled={otp !== '1111'}
         onClick={() => {
+          post({ title: role === 'lend' ? `قرض به ${c.full}` : `قرض از ${c.full}`, amount: role === 'lend' ? -amt : amt, cat: role === 'lend' ? 'transfer' : 'income' })
+          addCase({ kind: 'p2p', icon: 'doc', title: 'قرض‌نامه‌ی دوستانه', summary: `${money(amt)} تومان · ${c.full} · ${toFa(n)} قسط`, steps: [['هر دو طرف امضا کردند', 'امروز'], ['کسر خودکار قسط‌ها', `${toFa(n)} ماه`], ['تسویه', 'پایان قرارداد']] })
           toast(`${c.full} قرض‌نامه را در گوشی خودش امضا کرد ✓`)
           setTimeout(() => setDone(true), 700)
         }}

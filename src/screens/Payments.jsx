@@ -6,7 +6,7 @@ import { bills as allBills, user } from '../data/mock'
 import { money, short, toEn, toFa } from '../utils/fa'
 
 export function Bills({ focus }) {
-  const { reset, toast } = useApp()
+  const { reset, toast, post } = useApp()
   const unpaid = allBills.filter((b) => !b.paid)
   const [sel, setSel] = useState(() => new Set(focus ? [focus] : unpaid.map((b) => b.id)))
   const [add, setAdd] = useState(false)
@@ -20,12 +20,14 @@ export function Bills({ focus }) {
       n.has(id) ? n.delete(id) : n.add(id)
       return n
     })
-  const pay = () =>
+  const pay = () => {
+    post({ title: chosen.length > 1 ? `پرداخت ${toFa(chosen.length)} قبض` : `قبض ${chosen[0].kind}`, amount: -sum, cat: 'bill' })
     reset('receipt', {
       title: chosen.length > 1 ? `${toFa(chosen.length)} قبض پرداخت شد` : `قبض ${chosen[0].kind} پرداخت شد`,
       amount: sum,
       rows: [...chosen.map((b) => [`قبض ${b.kind}`, `${money(b.amount)} تومان`]), ['از حساب', 'حساب جاری'], ['کد پیگیری', toFa('552019'), true]],
     })
+  }
 
   return (
     <Screen
@@ -111,7 +113,7 @@ const PACKS = [
 ]
 
 export function TopUp() {
-  const { reset } = useApp()
+  const { reset, post } = useApp()
   const [kind, setKind] = useState('charge')
   const [mine, setMine] = useState(true)
   const [num, setNum] = useState('')
@@ -122,7 +124,8 @@ export function TopUp() {
   const ok = mine || num.length === 11
   const price = kind === 'charge' ? amount : PACKS[pack][1]
 
-  const buy = () =>
+  const buy = () => {
+    post({ title: kind === 'charge' ? 'خرید شارژ' : 'خرید بسته‌ی اینترنت', amount: -price, cat: 'bill' })
     reset('receipt', {
       title: kind === 'charge' ? 'شارژ انجام شد' : 'بسته فعال شد',
       amount: price,
@@ -133,6 +136,7 @@ export function TopUp() {
         ['کد پیگیری', toFa('609114'), true],
       ],
     })
+  }
 
   return (
     <Screen title="شارژ و بسته‌ی اینترنت" footer={<Btn disabled={!ok} onClick={buy}>{`خرید · ${money(price)} تومان`}</Btn>}>

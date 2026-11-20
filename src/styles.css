@@ -879,3 +879,10 @@ button.row:hover { background: var(--surface-2); }
 .em-gift { color: var(--magenta) !important; }
 .em-card { margin: 12px 0 0; }
 .md-bill { display: flex; align-items: center; gap: 12px; }
+.hdr-left { display: flex; gap: 6px; flex: none; }
+.help-btn { color: var(--brand); }
+.help-what { line-height: 1.9; margin: 4px 0 10px; }
+.help-how { margin: 0 0 12px; padding-right: 18px; display: flex; flex-direction: column; gap: 8px; line-height: 1.8; font-size: .9em; }
+.help-why { display: flex; gap: 8px; align-items: flex-start; background: var(--brand-soft); color: var(--brand); padding: 10px 12px; border-radius: 12px; font-size: .85em; line-height: 1.8; margin-bottom: 12px; }
+.help-why svg { flex: none; margin-top: 4px; }
+.help-api { display: flex; flex-direction: column; gap: 6px; background: var(--surface-2); padding: 10px; border-radius: 12px; margin-bottom: 12px; }

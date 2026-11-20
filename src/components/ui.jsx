@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import Icon from './Icon'
 import { money, toEn, toFa, tomanWords } from '../utils/fa'
+import { HELP } from '../data/help'
+import { API_MAP } from '../data/openApi'
 
 /* ---------- navigation & app context ---------- */
 export const AppCtx = createContext(null)
@@ -28,13 +30,61 @@ export function Num({ children }) {
 }
 
 /* ---------- layout ---------- */
-export function Screen({ title, back = true, action, children, className = '', footer, onBack }) {
-  const { pop } = useApp()
+// راهنمای «؟»: برای هر صفحه توضیح می‌دهد این صفحه چیست و چطور کار می‌کند
+export function HelpButton({ screen, cls = 'hdr-btn help-btn' }) {
+  const [open, setOpen] = useState(false)
+  const h = HELP[screen]
+  if (!h) return null
+  const [title, what, how = [], why] = h
+  const apis = API_MAP[screen] || []
+  return (
+    <>
+      <button className={cls} onClick={() => setOpen(true)} aria-label="راهنمای این صفحه">
+        <Icon name="help" size={20} />
+      </button>
+      <Sheet open={open} onClose={() => setOpen(false)} title={title}>
+        <p className="help-what">{what}</p>
+        {how.length > 0 && (
+          <ul className="help-how">
+            {how.map((t) => (
+              <li key={t}>{t}</li>
+            ))}
+          </ul>
+        )}
+        {why && (
+          <div className="help-why">
+            <Icon name="star" size={16} /> {why}
+          </div>
+        )}
+        {apis.length > 0 && (
+          <div className="help-api" dir="ltr">
+            {apis.slice(0, 3).map((c, i) => (
+              <div key={i} className="api-line">
+                <span className={`m m-${c.method}`}>{c.method}</span>
+                <code>{c.path}</code>
+              </div>
+            ))}
+          </div>
+        )}
+        <Btn kind="soft" className="block" onClick={() => setOpen(false)}>
+          فهمیدم
+        </Btn>
+      </Sheet>
+    </>
+  )
+}
+
+export function Screen({ title, back = true, home, action, children, className = '', footer, onBack }) {
+  const { pop, reset, screen } = useApp()
   return (
     <div className={`scr ${className}`}>
       {title !== undefined && (
         <header className="hdr">
-          {back ? (
+          {home ? (
+            <button className="hdr-btn" onClick={() => reset('home')} aria-label="خانه">
+              <Icon name="home" size={20} />
+            </button>
+          ) : back ? (
             <button className="hdr-btn" onClick={onBack || pop} aria-label="بازگشت">
               <Icon name="back" size={22} />
             </button>
@@ -42,7 +92,10 @@ export function Screen({ title, back = true, action, children, className = '', f
             <span className="hdr-btn ghost" />
           )}
           <h1>{title}</h1>
-          {action || <span className="hdr-btn ghost" />}
+          <div className="hdr-left">
+            {action && action.props?.className?.includes('ghost') ? null : action}
+            <HelpButton screen={screen} />
+          </div>
         </header>
       )}
       <div className="scr-body">{children}</div>

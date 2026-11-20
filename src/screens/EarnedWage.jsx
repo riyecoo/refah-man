@@ -8,21 +8,22 @@ const M = (v) => toFa((v / 1e6).toFixed(1)).replace('.', '٫')
 
 // حقوقِ کارکرده: بخشی از حقوقی که تا امروز کار کرده‌اید را بی‌سود، همین حالا بگیرید
 export default function EarnedWage() {
-  const { reset, toast } = useApp()
+  const { reset, toast, post, ewaTaken, setEwaTaken } = useApp()
   const earned = Math.round((ewa.salary * ewa.dayNow) / ewa.daysInMonth)
-  const avail = Math.round((earned * ewa.pct) / 100)
+  const avail = Math.max(0, Math.round((earned * ewa.pct) / 100) - ewaTaken)
   const [amt, setAmt] = useState(Math.min(5000000, avail))
+  const [paid, setPaid] = useState(0)
   const [otp, setOtp] = useState('')
   const [done, setDone] = useState(false)
 
   if (done)
     return (
-      <Screen title="حقوق کارکرده" back={false}>
+      <Screen title="حقوق کارکرده" back={false} home>
         <div className="ewa-done">
           <img src="./assets/st-success.png" width="130" height="130" alt="" />
-          <b>{M(amt)} میلیون تومان واریز شد</b>
+          <b>{M(paid)} میلیون تومان به حساب جاری واریز شد</b>
           <p className="muted small">
-            بدون سود و کارمزد. روز {ewa.payday} همین مبلغ از حقوق کم می‌شود و بقیه مثل همیشه واریز می‌شود.
+            بدون سود و کارمزد. روز {ewa.payday} همین مبلغ از حقوق کم می‌شود. موجودی و گردش حسابتان همین الان به‌روز شد و بقیه مثل همیشه واریز می‌شود.
           </p>
         </div>
         <Btn className="block" onClick={() => reset('home')}>
@@ -50,12 +51,18 @@ export default function EarnedWage() {
         </div>
       </Card>
 
+      {avail < 500000 && (
+        <Card className="ewa-why">
+          <Icon name="check" size={18} />
+          <span>سقف این ماه را برداشته‌اید. از روزهای کاری بعدی، دوباره قابل برداشت می‌شود.</span>
+        </Card>
+      )}
       <Section title="چقدر لازم دارید؟">
         <Card>
           <div className="ewa-amt">
             <Num>{money(amt)}</Num> <span className="muted">تومان</span>
           </div>
-          <input type="range" className="ewa-range" min={500000} max={avail} step={500000} value={amt} onChange={(e) => setAmt(+e.target.value)} />
+          <input type="range" className="ewa-range" min={500000} max={Math.max(avail, 500000)} step={500000} value={Math.min(amt, Math.max(avail, 500000))} onChange={(e) => setAmt(+e.target.value)} />
           <div className="ewa-terms">
             <div>
               <span>سود</span>
@@ -85,8 +92,11 @@ export default function EarnedWage() {
       </Section>
       <Btn
         className="block"
-        disabled={otp !== '1111'}
+        disabled={otp !== '1111' || avail < 500000}
         onClick={() => {
+          post({ title: 'واریز از حقوق کارکرده', amount: amt, cat: 'income' })
+          setEwaTaken((t) => t + amt)
+          setPaid(amt)
           toast('پیامک بانک رفاه: واریز از محل حقوق کارکرده')
           setDone(true)
         }}

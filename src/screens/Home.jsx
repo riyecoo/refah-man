@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Icon from '../components/Icon'
 import Art from '../components/Art'
-import { Avatar, Num, Section, useApp } from '../components/ui'
+import { Avatar, HelpButton, Num, Section, useApp } from '../components/ui'
+import { ewa as EWA } from '../data/openApi'
 import { Countdown } from './Calendar'
 import { NewDeviceCard } from './Profile'
 import { accounts, bills, CATS, contacts, fund, loans, transactions, user } from '../data/mock'
@@ -87,9 +88,7 @@ export default function Home() {
           >
             <Icon name={crowd ? 'eyeOff' : 'users'} size={21} />
           </button>
-          <button className="icon-btn" onClick={() => push('support')} aria-label="پشتیبانی">
-            <Icon name="help" size={21} />
-          </button>
+          <HelpButton screen="home" cls="icon-btn" />
           <button className="icon-btn" onClick={() => push('notifs')} aria-label="اعلان‌ها">
             <Icon name="bell" size={21} />
             <span className="badge-dot" />
@@ -260,7 +259,9 @@ const POCKET = [
 
 // «رفاه باز»: داده‌ی حقوق، با رضایت مشتری، به‌جای ضامن و قرض آخر ماه
 function OpenRefah() {
-  const { push, consents } = useApp()
+  const { push, consents, ewaTaken } = useApp()
+  const left = Math.max(0, Math.round((EWA.salary * EWA.dayNow) / EWA.daysInMonth / 100 * EWA.pct) - ewaTaken)
+  const leftTxt = toFa((left / 1e6).toFixed(1)).replace('.', '٫').replace('٫۰', '')
   return (
     <section className="sec">
       <div className="sec-head">
@@ -274,8 +275,8 @@ function OpenRefah() {
           <Icon name="wallet" size={22} />
         </span>
         <span className="grow">
-          <b>۷٫۲ میلیون از حقوقت آماده است</b>
-          <small>حقوق ۱۸ روز کارکرد؛ بی‌سود، همین حالا</small>
+          <b>{left > 0 ? `${leftTxt} میلیون از حقوقت آماده است` : 'سقف حقوق کارکرده‌ی این ماه برداشته شد'}</b>
+          <small>{left > 0 ? `حقوق ${toFa(EWA.dayNow)} روز کارکرد؛ بی‌سود، همین حالا` : `روز حقوق (${EWA.payday}) خودکار تسویه می‌شود`}</small>
         </span>
         <Icon name="chev" size={18} />
       </button>
