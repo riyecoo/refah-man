@@ -270,6 +270,16 @@ function OpenRefah() {
           پرتال API
         </button>
       </div>
+      <button className="or-ewa gb-home" onClick={() => push('groupBuy')}>
+        <span className="or-ewa-ic">
+          <Icon name="bag" size={22} />
+        </span>
+        <span className="grow">
+          <b>رفاه‌بازار: کیف چرم ۵ میلیونی، ۳ میلیون</b>
+          <small>فقط برای مشتریان رفاه · ۲۵۸ جای خالی · ۴ قسط</small>
+        </span>
+        <Icon name="chev" size={18} />
+      </button>
       <button className="or-ewa" onClick={() => push('ewa')}>
         <span className="or-ewa-ic">
           <Icon name="wallet" size={22} />

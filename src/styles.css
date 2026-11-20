@@ -886,3 +886,41 @@ button.row:hover { background: var(--surface-2); }
 .help-why { display: flex; gap: 8px; align-items: flex-start; background: var(--brand-soft); color: var(--brand); padding: 10px 12px; border-radius: 12px; font-size: .85em; line-height: 1.8; margin-bottom: 12px; }
 .help-why svg { flex: none; margin-top: 4px; }
 .help-api { display: flex; flex-direction: column; gap: 6px; background: var(--surface-2); padding: 10px; border-radius: 12px; margin-bottom: 12px; }
+/* ===== رفاه‌بازار ===== */
+.gb-home { background: linear-gradient(135deg, #8a5a3c, var(--magenta)); }
+.gb-hero { background: linear-gradient(135deg, var(--brand), var(--magenta)); color: #fff; border: 0; margin-bottom: 12px; }
+.gb-hero p { opacity: .9; margin: 6px 0 0; line-height: 1.8; }
+.gb-card { display: flex; gap: 12px; width: 100%; text-align: right; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; margin-bottom: 10px; box-shadow: var(--shadow); }
+.gb-card .grow { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.gb-thumb { width: 84px; height: 84px; border-radius: 16px; display: grid; place-items: center; color: rgba(255,255,255,.92); flex: none; }
+.gb-thumb.big { width: 100%; height: 170px; border-radius: 20px; margin-bottom: 12px; }
+.gb-price { display: flex; align-items: baseline; gap: 8px; font-size: .9em; }
+.gb-price s { color: var(--muted); font-size: .85em; }
+.gb-price b { color: var(--brand); }
+.gb-price.big b { font-size: 1.5em; }
+.gb-off { background: var(--danger-soft); color: var(--danger); font-weight: 800; font-size: .75em; padding: 2px 8px; border-radius: 99px; }
+.gb-cap { height: 6px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; margin: 6px 0 4px; }
+.gb-cap span { display: block; height: 100%; background: linear-gradient(90deg, var(--magenta), var(--brand)); border-radius: 99px; }
+.gb-title { font-size: 1.15em; font-weight: 800; margin: 0 0 6px; }
+.gb-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+.gb-tiers div { border: 1px solid var(--line); border-radius: 12px; padding: 8px 4px; display: flex; flex-direction: column; gap: 2px; background: var(--surface-2); }
+.gb-tiers div.on { border-color: var(--gold); background: #fdf6e3; color: #7a5a10; box-shadow: 0 0 0 2px rgba(233,185,73,.35); }
+.gb-tiers span { font-weight: 800; color: var(--ok); }
+.gb-tiers small { font-size: .7em; color: var(--muted); }
+.gb-final { margin-top: 10px; padding: 10px 12px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); text-align: center; }
+.gb-final b { font-size: 1.15em; }
+.gb-check { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.gb-timer { font-size: 2.4em; font-weight: 800; color: var(--brand); text-align: center; }
+.gb-timer small { font-size: .35em; color: var(--muted); margin-right: 4px; }
+.gb-ck { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .9em; }
+.gb-ck.ok { color: var(--ok); font-weight: 700; }
+.gb-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 4px; }
+.gb-stats div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 10px; text-align: center; display: flex; flex-direction: column; }
+.gb-stats b { font-size: 1.3em; color: var(--brand); }
+.gb-stats span { font-size: .75em; color: var(--muted); }
+.gb-form { display: flex; flex-direction: column; gap: 12px; }
+.gb-form label { display: flex; flex-direction: column; gap: 6px; font-size: .85em; font-weight: 600; }
+.ch-row { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 14px; text-align: right; border-bottom: 1px solid var(--line); }
+.ch-row:last-child { border-bottom: 0; }
+.ch-row small { display: block; color: var(--muted); font-size: .78em; margin-top: 2px; }
+.ch-n { width: 28px; height: 28px; border-radius: 9px; background: var(--brand); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: .8em; flex: none; }

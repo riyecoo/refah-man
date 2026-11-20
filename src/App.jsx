@@ -35,6 +35,7 @@ import GroupGuarantee from './screens/GroupGuarantee'
 import P2PLoan from './screens/P2PLoan'
 import EmployerMatch from './screens/EmployerMatch'
 import MedicalInstallment from './screens/MedicalInstallment'
+import GroupBuy from './screens/GroupBuy'
 import { seedConsents } from './data/openApi'
 
 const SCREENS = {
@@ -84,6 +85,7 @@ const SCREENS = {
   p2pLoan: P2PLoan,
   employerMatch: EmployerMatch,
   medical: MedicalInstallment,
+  groupBuy: GroupBuy,
 }
 const TABS = ['home', 'accounts', 'cards', 'profile']
 

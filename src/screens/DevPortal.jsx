@@ -1,10 +1,10 @@
 import Icon from '../components/Icon'
 import { Btn, Card, Screen, Section, Toggle, useApp } from '../components/ui'
-import { API_BASE, CATALOG, PARTNERS } from '../data/openApi'
+import { API_BASE, CATALOG, CHALLENGES, PARTNERS } from '../data/openApi'
 
 // «رفاه باز»: پرتال توسعه‌دهندگان؛ همان APIهایی که اپ خودش هم مصرف می‌کند
 export default function DevPortal() {
-  const { devMode, setDevMode } = useApp()
+  const { devMode, setDevMode, push } = useApp()
   return (
     <Screen title="رفاه باز · پرتال API">
       <Card className="dp-hero">
@@ -25,6 +25,21 @@ export default function DevPortal() {
           <Toggle on={devMode} onChange={setDevMode} label="حالت توسعه‌دهنده" />
         </div>
       </Card>
+
+      <Section title="پاسخ به چالش‌های اینوکاپ رفاتک ۱۴۰۵">
+        <Card className="list">
+          {CHALLENGES.map(([n, t, ans, to]) => (
+            <button key={n} className="ch-row" onClick={() => push(to)}>
+              <span className="ch-n">{n.toLocaleString('fa-IR')}</span>
+              <span className="grow">
+                <b>{t}</b>
+                <small>{ans}</small>
+              </span>
+              <Icon name="chev" size={16} />
+            </button>
+          ))}
+        </Card>
+      </Section>
 
       {CATALOG.map(([group, eps]) => (
         <Section key={group} title={group}>

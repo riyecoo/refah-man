@@ -117,6 +117,13 @@ export const API_MAP = {
     E('POST', '/medical-installments', { bill_id: 'MB-301', installments: 6 }, { id: 'MI-44', paid_to_center: 18000000 }),
     E('POST', '/payments/mandates', { amount: 3000000, schedule: 'monthly@payday', source: 'salary_or_pension' }, { status: 'active' }),
   ],
+  groupBuy: [
+    E('GET', '/marketplace/deals?segment=refah', null, { items: [{ id: 'bag', price: 5000000, deal: 3000000, capacity: 1000, reserved: 742 }] }),
+    E('GET', '/customers/me/retention-tier', null, { avg_balance_90d: 65000000, tier: 'gold', extra_discount_pct: 10 }, 'ماندگاری بیشتر پول، تخفیف بیشتر'),
+    E('POST', '/accounts/ACC-1/holds', { amount: 200000, reason: 'deal_reservation', deal_id: 'bag' }, { hold_id: 'H-881', status: 'held' }, 'قفل مبلغ، نه برداشت'),
+    E('POST', '/bnpl/instant-decision', { amount: 2700000, installments: 4 }, { approved: true, decision_ms: 2400 }, 'خرید اعتباری زیر ۱ دقیقه'),
+    E('POST', '/merchants/{id}/campaigns', { price: 5000000, deal: 3000000, capacity: 1000 }, { id: 'CMP-12', status: 'live' }, 'سمت فروشگاه'),
+  ],
   devPortal: [E('GET', '/catalog', null, { apis: 14, sandbox: 'https://sandbox.refah-bank.ir', auth: 'OAuth2 + mTLS' })],
   transfer: [
     E('GET', '/inquiry/owner?iban=IR..', null, { name: 'مریم هاشمی', bank: 'رفاه' }, 'استعلام صاحب حساب'),
@@ -150,7 +157,7 @@ export const CATALOG = [
   ['احراز و رضایت', [['POST', '/consents'], ['DELETE', '/consents/{id}'], ['POST', '/kyc/shahkar']]],
   ['داده‌ی حقوق (انحصاری رفاه)', [['GET', '/payroll/earned'], ['POST', '/payroll/advances'], ['POST', '/income-passports'], ['GET', '/income-passports/{id}/verify']]],
   ['حساب و پرداخت', [['GET', '/accounts'], ['GET', '/accounts/{id}/transactions'], ['POST', '/transfers'], ['POST', '/payments/mandates']]],
-  ['ایده‌های تازه', [['POST', '/rent-guarantees'], ['POST', '/delegations'], ['POST', '/loans/{id}/guarantors/split'], ['POST', '/p2p-loans'], ['POST', '/savings/employer-match'], ['POST', '/medical-installments']]],
+  ['ایده‌های تازه', [['POST', '/rent-guarantees'], ['POST', '/delegations'], ['POST', '/loans/{id}/guarantors/split'], ['POST', '/p2p-loans'], ['POST', '/savings/employer-match'], ['POST', '/medical-installments'], ['POST', '/accounts/{id}/holds'], ['POST', '/bnpl/instant-decision'], ['POST', '/merchants/{id}/campaigns']]],
   ['اعتبار و وام', [['POST', '/credit/score'], ['POST', '/loans/applications'], ['POST', '/promissory-notes']]],
 ]
 
@@ -159,4 +166,21 @@ export const PARTNERS = [
   ['سامانه‌های اجاره و املاک', 'پاسپورت حقوق به‌جای ضامن', 'home'],
   ['کارفرماها و منابع انسانی', 'حقوق کارکرده برای کارکنان', 'users'],
   ['اپ‌های مدیریت مالی', 'گردش حساب با رضایت', 'chart'],
+]
+
+// نگاشت چالش‌های رسمی اینوکاپ رفاتک ۱۴۰۵ به قابلیت‌های اپ
+export const CHALLENGES = [
+  [1, 'محاسبه‌ی ارزش طول عمر مشتری', 'سطح ماندگاری رفاه‌بازار و داده‌ی حقوق (پایه‌ی محاسبه)', 'groupBuy'],
+  [3, 'تحلیل رفتار و توصیه به مشتری', 'کارنامه‌ی ماه، تورم شخصی، تقویم پول', 'reportCard'],
+  [4, 'معرفی خودکار محصول متناسب با رفتار', 'سه پیشنهاد کارنامه، پیشنهاد روش انتقال', 'reportCard'],
+  [6, 'دستیار هوش مصنوعی', 'مشاور AvalAI در کارنامه‌ی ماه', 'reportCard'],
+  [7, 'وام خرد بسیار سریع', 'حقوق کارکرده: برداشت فوری بی‌سود', 'ewa'],
+  [8, 'وام روزانه', 'حقوق کارکرده: سقف هر روز کار بیشتر می‌شود', 'ewa'],
+  [9, 'اعتبارسنجی بازی‌وار', 'کارنامه‌ی ماه: نمره‌ی انضباط مالی از ۲۰', 'reportCard'],
+  [10, 'قرض فرد به فرد با تسهیلگری بانک', 'قرض‌نامه‌ی دوستانه، ضمانت جمعی', 'p2pLoan'],
+  [11, 'خرید اعتباری زیر ۱ دقیقه', 'رفاه‌بازار: اعتبارسنجی آنی ۴ قسطی؛ پاسپورت حقوق', 'groupBuy'],
+  [12, 'خرید گروهی با تسهیلگری بانک', 'رفاه‌بازار: ظرفیت محدود، رزرو با قفل مبلغ', 'groupBuy'],
+  [14, 'ماندگاری بیشتر پول، تخفیف بیشتر', 'سطح نقره‌ای و طلایی رفاه‌بازار', 'groupBuy'],
+  [15, 'صندوق‌های خانوادگی', 'صندوق دوستانه، دسترسی امانی', 'fund'],
+  [16, 'تسهیم سود', 'پس‌انداز با سهم کارفرما', 'employerMatch'],
 ]
