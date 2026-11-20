@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import Icon from './Icon'
 import { useApp } from './ui'
-import { PITCH } from '../data/pitch'
+import { PITCH as SHORT, PITCH_FULL } from '../data/pitch'
 import { toFa } from '../utils/fa'
 
 // نوار «حالت ارائه»: ارائه‌دهنده را قدم‌به‌قدم در یک داستان واحد می‌برد
 export default function PitchBar() {
-  const { pitchStep, setPitchStep, setPitch, reset } = useApp()
+  const { pitchStep, setPitchStep, setPitch, reset, pitchKind } = useApp()
+  const PITCH = pitchKind === 'full' ? PITCH_FULL : SHORT
   const [min, setMin] = useState(false)
   const [screen, title, say, show] = PITCH[pitchStep]
   const goto = (i) => {
@@ -34,7 +35,7 @@ export default function PitchBar() {
       </div>
       <div className="pb-dots">
         {PITCH.map((p, i) => (
-          <button key={p[0]} className={i === pitchStep ? 'on' : i < pitchStep ? 'done' : ''} onClick={() => goto(i)} aria-label={p[1]} />
+          <button key={p[0] + i} className={i === pitchStep ? 'on' : i < pitchStep ? 'done' : ''} onClick={() => goto(i)} aria-label={p[1]} />
         ))}
       </div>
       <p className="pb-say">«{say}»</p>

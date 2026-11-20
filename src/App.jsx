@@ -128,6 +128,7 @@ export default function App() {
   const [pitch, setPitchRaw] = useState(false)
   const [pitchStep, setPitchStep] = useState(0)
   const [pitchPending, setPitchPending] = useState(false)
+  const [pitchKind, setPitchKind] = useState('short')
   const post = useCallback(({ title, amount, cat = 'transfer', acc = 'cur' }) => {
     const a = ACCS.find((x) => x.id === acc)
     if (a) a.balance += amount
@@ -162,7 +163,7 @@ export default function App() {
   }, [crowd])
 
   const push = useCallback((name, params) => setStack((s) => [...s, { name, params, key: Date.now() }]), [])
-  const pop = useCallback(() => setStack((s) => (s.length > 1 ? s.slice(0, -1) : s)), [])
+  const pop = useCallback(() => setStack((s) => (s.length > 1 ? s.slice(0, -1) : TABS.includes(s[0].name) ? s : [{ name: 'home', key: Date.now() }])), [])
   const reset = useCallback((name = 'home', params) => setStack([{ name, params, key: Date.now() }]), [])
   const toast = useCallback((m) => {
     setToastMsg(m)
@@ -195,11 +196,16 @@ export default function App() {
       screen: phase === 'app' ? stack[stack.length - 1].name : 'login',
       post, ledgerVer, ewaTaken, setEwaTaken,
       pitch, pitchStep, setPitchStep, setPitchPending,
-      setPitch: (on) => {
+      pitchKind, 
+      setPitch: (on, kind = 'short') => {
         setPitchRaw(on)
         if (on) {
+          setPitchKind(kind)
           setPitchStep(0)
           setDevMode(true)
+          reset('home')
+        } else {
+          setDevMode(false)
           reset('home')
         }
       },
@@ -210,7 +216,7 @@ export default function App() {
         setPhase('login')
       },
     }),
-    [push, pop, reset, toast, theme, simple, hideBal, frozen, crowd, devicePending, cases, addCase, consents, devMode, stack, phase, post, ledgerVer, ewaTaken, pitch, pitchStep],
+    [push, pop, reset, toast, theme, simple, hideBal, frozen, crowd, devicePending, cases, addCase, consents, devMode, stack, phase, post, ledgerVer, ewaTaken, pitch, pitchStep, pitchKind],
   )
 
   useEffect(() => {

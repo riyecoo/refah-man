@@ -35,7 +35,8 @@ export function Profile() {
       <Section title="نمایش">
         <Card className="list">
           <Row icon="moon" title="حالت تاریک" end={<Toggle on={theme === 'dark'} onChange={(v) => setTheme(v ? 'dark' : 'light')} label="حالت تاریک" />} />
-          <Row icon="star" title="▶ حالت ارائه برای داورها" sub="یک داستان ۷ قدمی: از ایده تا نمای بانک" onClick={() => setPitch(true)} chevron />
+          <Row icon="star" title="▶ ارائه‌ی کوتاه (۷ قدم)" sub="یک داستان: از ایده تا نمای بانک" onClick={() => setPitch(true, 'short')} chevron />
+          <Row icon="layers" title="▶ ارائه‌ی کامل همه‌ی بخش‌ها (۲۲ قدم)" sub="همه‌ی قابلیت‌ها، به‌ترتیب، با متن هر قدم" onClick={() => setPitch(true, 'full')} chevron />
           <Row icon="text" title="حالت ساده" sub="متن درشت و فقط کارهای اصلی؛ مناسب پدر و مادرها" end={<Toggle on={simple} onChange={setSimple} label="حالت ساده" />} />
           <Row icon="eyeOff" title="پنهان کردن موجودی در خانه" end={<Toggle on={hideBal} onChange={setHideBal} label="پنهان کردن موجودی" />} />
         </Card>
