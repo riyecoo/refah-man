@@ -875,3 +875,7 @@ button.row:hover { background: var(--surface-2); }
 .p2p-head b { flex: 1; }
 .p2p-head span { font-size: .78em; opacity: .8; }
 .ok-t { color: #1e7f52; }
+.pocket-more { margin-top: 8px; }
+.em-gift { color: var(--magenta) !important; }
+.em-card { margin: 12px 0 0; }
+.md-bill { display: flex; align-items: center; gap: 12px; }

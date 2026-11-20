@@ -32,6 +32,8 @@ import RentGuarantee from './screens/RentGuarantee'
 import Delegation from './screens/Delegation'
 import GroupGuarantee from './screens/GroupGuarantee'
 import P2PLoan from './screens/P2PLoan'
+import EmployerMatch from './screens/EmployerMatch'
+import MedicalInstallment from './screens/MedicalInstallment'
 import { seedConsents } from './data/openApi'
 
 const SCREENS = {
@@ -79,6 +81,8 @@ const SCREENS = {
   delegation: Delegation,
   groupGuarantee: GroupGuarantee,
   p2pLoan: P2PLoan,
+  employerMatch: EmployerMatch,
+  medical: MedicalInstallment,
 }
 const TABS = ['home', 'accounts', 'cards', 'profile']
 

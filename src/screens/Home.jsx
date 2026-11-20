@@ -293,12 +293,14 @@ function OpenRefah() {
           <span>پرتال API</span>
         </button>
       </div>
-      <div className="pocket pocket-4">
+      <div className="pocket pocket-more">
         {[
           ['rentGuarantee', 'home', 'ودیعه‌ی بانکی'],
           ['groupGuarantee', 'users', 'ضمانت جمعی'],
           ['p2pLoan', 'doc', 'قرض‌نامه‌ی دوستانه'],
-          ['delegation', 'heart', 'دسترسی امانی'],
+          ['delegation', 'key', 'دسترسی امانی'],
+          ['employerMatch', 'piggy', 'پس‌انداز با سهم کارفرما'],
+          ['medical', 'heart', 'درمان قسطی'],
         ].map(([to, ic, t]) => (
           <button key={to} className="pk" onClick={() => push(to)}>
             <span className="pk-ic"><Icon name={ic} size={20} /></span>

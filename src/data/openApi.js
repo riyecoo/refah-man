@@ -108,6 +108,15 @@ export const API_MAP = {
     E('POST', '/p2p-loans', { counterparty: 'maryam', amount: 10000000, installments: 5, day: 1 }, { id: 'QN-2087', status: 'awaiting_counterparty' }),
     E('POST', '/payments/mandates', { from: 'borrower', to: 'lender', amount: 2000000, schedule: 'monthly@payday' }, { id: 'MD-77', status: 'active' }, 'کسر خودکار قسط در روز حقوق'),
   ],
+  employerMatch: [
+    E('POST', '/savings/employer-match', { pct: 5, account: 'savings', start: 'next_payday' }, { id: 'EM-12', status: 'awaiting_employer' }),
+    E('POST', '/employers/{id}/match-feed', { employee: '••••', match_pct: 5 }, { accepted: true }, 'سمت کارفرما: سهم خود را تأیید می‌کند'),
+  ],
+  medical: [
+    E('GET', '/medical-bills/pending', null, { items: [{ center: 'dentist-amini', amount: 18000000 }] }, 'صورت‌حسابی که مرکز درمانی فرستاده'),
+    E('POST', '/medical-installments', { bill_id: 'MB-301', installments: 6 }, { id: 'MI-44', paid_to_center: 18000000 }),
+    E('POST', '/payments/mandates', { amount: 3000000, schedule: 'monthly@payday', source: 'salary_or_pension' }, { status: 'active' }),
+  ],
   devPortal: [E('GET', '/catalog', null, { apis: 14, sandbox: 'https://sandbox.refah-bank.ir', auth: 'OAuth2 + mTLS' })],
   transfer: [
     E('GET', '/inquiry/owner?iban=IR..', null, { name: 'مریم هاشمی', bank: 'رفاه' }, 'استعلام صاحب حساب'),
@@ -141,7 +150,7 @@ export const CATALOG = [
   ['احراز و رضایت', [['POST', '/consents'], ['DELETE', '/consents/{id}'], ['POST', '/kyc/shahkar']]],
   ['داده‌ی حقوق (انحصاری رفاه)', [['GET', '/payroll/earned'], ['POST', '/payroll/advances'], ['POST', '/income-passports'], ['GET', '/income-passports/{id}/verify']]],
   ['حساب و پرداخت', [['GET', '/accounts'], ['GET', '/accounts/{id}/transactions'], ['POST', '/transfers'], ['POST', '/payments/mandates']]],
-  ['ایده‌های تازه', [['POST', '/rent-guarantees'], ['POST', '/delegations'], ['POST', '/loans/{id}/guarantors/split'], ['POST', '/p2p-loans']]],
+  ['ایده‌های تازه', [['POST', '/rent-guarantees'], ['POST', '/delegations'], ['POST', '/loans/{id}/guarantors/split'], ['POST', '/p2p-loans'], ['POST', '/savings/employer-match'], ['POST', '/medical-installments']]],
   ['اعتبار و وام', [['POST', '/credit/score'], ['POST', '/loans/applications'], ['POST', '/promissory-notes']]],
 ]
 
