@@ -5,7 +5,7 @@ import { contacts, devices, notifications, pendingDevice, user } from '../data/m
 import { toFa } from '../utils/fa'
 
 export function Profile() {
-  const { push, theme, setTheme, simple, setSimple, hideBal, setHideBal, lock, logout } = useApp()
+  const { push, theme, setTheme, simple, setSimple, hideBal, setHideBal, lock, logout, setPitch } = useApp()
   const [out, setOut] = useState(false)
   return (
     <Screen title="من" back={false}>
@@ -35,6 +35,7 @@ export function Profile() {
       <Section title="نمایش">
         <Card className="list">
           <Row icon="moon" title="حالت تاریک" end={<Toggle on={theme === 'dark'} onChange={(v) => setTheme(v ? 'dark' : 'light')} label="حالت تاریک" />} />
+          <Row icon="star" title="▶ حالت ارائه برای داورها" sub="یک داستان ۷ قدمی: از ایده تا نمای بانک" onClick={() => setPitch(true)} chevron />
           <Row icon="text" title="حالت ساده" sub="متن درشت و فقط کارهای اصلی؛ مناسب پدر و مادرها" end={<Toggle on={simple} onChange={setSimple} label="حالت ساده" />} />
           <Row icon="eyeOff" title="پنهان کردن موجودی در خانه" end={<Toggle on={hideBal} onChange={setHideBal} label="پنهان کردن موجودی" />} />
         </Card>

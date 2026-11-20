@@ -29,6 +29,7 @@ import IncomePassport from './screens/IncomePassport'
 import EarnedWage from './screens/EarnedWage'
 import DevPortal from './screens/DevPortal'
 import ApiPanel from './components/ApiPanel'
+import PitchBar from './components/PitchBar'
 import RentGuarantee from './screens/RentGuarantee'
 import Delegation from './screens/Delegation'
 import GroupGuarantee from './screens/GroupGuarantee'
@@ -122,6 +123,9 @@ export default function App() {
   // دفتر حساب زنده: هر عملیات موجودی و گردش حساب را واقعاً تغییر می‌دهد
   const [ledgerVer, setLedgerVer] = useState(0)
   const [ewaTaken, setEwaTaken] = useState(0)
+  const [pitch, setPitchRaw] = useState(false)
+  const [pitchStep, setPitchStep] = useState(0)
+  const [pitchPending, setPitchPending] = useState(false)
   const post = useCallback(({ title, amount, cat = 'transfer', acc = 'cur' }) => {
     const a = ACCS.find((x) => x.id === acc)
     if (a) a.balance += amount
@@ -188,6 +192,15 @@ export default function App() {
       crowd, setCrowd, devicePending, setDevicePending, cases, addCase, consents, setConsents, devMode, setDevMode,
       screen: phase === 'app' ? stack[stack.length - 1].name : 'login',
       post, ledgerVer, ewaTaken, setEwaTaken,
+      pitch, pitchStep, setPitchStep, setPitchPending,
+      setPitch: (on) => {
+        setPitchRaw(on)
+        if (on) {
+          setPitchStep(0)
+          setDevMode(true)
+          reset('home')
+        }
+      },
       lock: () => setPhase('lock'),
       logout: () => {
         save('yar-registered', false)
@@ -195,7 +208,7 @@ export default function App() {
         setPhase('login')
       },
     }),
-    [push, pop, reset, toast, theme, simple, hideBal, frozen, crowd, devicePending, cases, addCase, consents, devMode, stack, phase, post, ledgerVer, ewaTaken],
+    [push, pop, reset, toast, theme, simple, hideBal, frozen, crowd, devicePending, cases, addCase, consents, devMode, stack, phase, post, ledgerVer, ewaTaken, pitch, pitchStep],
   )
 
   useEffect(() => {
@@ -219,6 +232,12 @@ export default function App() {
               save('yar-registered', true)
               reset('home')
               setPhase('app')
+              if (pitchPending) {
+                setPitchPending(false)
+                setPitchRaw(true)
+                setPitchStep(0)
+                setDevMode(true)
+              }
             }}
           />
         ) : (
@@ -228,6 +247,7 @@ export default function App() {
             </div>
             {isTab && <TabBar current={top.name} />}
             {devMode && <ApiPanel screen={top.name} key={top.name} />}
+            {pitch && <PitchBar />}
           </>
         )}
         {toastMsg && (

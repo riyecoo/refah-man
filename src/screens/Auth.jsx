@@ -63,6 +63,7 @@ function Onboard({ next }) {
 }
 
 function Login({ next }) {
+  const { setPitchPending } = useApp()
   const [u, setU] = useState('')
   const [p, setP] = useState('')
   const [err, setErr] = useState(false)
@@ -120,6 +121,15 @@ function Login({ next }) {
           }}
         >
           پر کردن خودکار
+        </button>
+        <button
+          className="pitch-start"
+          onClick={() => {
+            setPitchPending(true)
+            next()
+          }}
+        >
+          ▶ ورود و شروع «حالت ارائه» برای داورها
         </button>
       </div>
     </div>
