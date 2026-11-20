@@ -102,7 +102,7 @@ export default function Certificate() {
             <>
               To: <b>{to || '—'}</b>
               <br />
-              This is to certify that <b>Ehsan Hashemi</b> (National ID 0012345678) holds accounts with this bank with a total available balance of{' '}
+              This is to certify that <b>Arash Hamidi</b> (National ID 0012345678) holds accounts with this bank with a total available balance of{' '}
               <b>{rial.toLocaleString('en-US')} IRR</b> as of 24 November 2026.
             </>
           ) : (

@@ -82,7 +82,7 @@ export const API_MAP = {
   ],
   passport: [
     E('POST', '/income-passports', { show: ['payroll:band', 'payroll:history', 'credit:no-arrears'], ttl_hours: 48, single_use: true }, { id: 'IP-7Q2K', url: 'https://refah.bank/p/7Q2K', expires_at: '+48h' }),
-    E('GET', '/income-passports/IP-7Q2K/verify', null, { valid: true, holder: 'احسان هاشمی', payroll_band: '20-25M', months_continuous: 38, arrears: false, signed_by: 'Refah Kargaran Bank' }, 'همان چیزی که صاحبخانه یا فروشگاه می‌بیند'),
+    E('GET', '/income-passports/IP-7Q2K/verify', null, { valid: true, holder: 'آرش حمیدی', payroll_band: '20-25M', months_continuous: 38, arrears: false, signed_by: 'Refah Kargaran Bank' }, 'همان چیزی که صاحبخانه یا فروشگاه می‌بیند'),
   ],
   ewa: [
     E('GET', '/payroll/earned', null, { salary: 24000000, worked_days: 18, earned: 14400000, available: 7200000, fee: 0 }),
@@ -92,7 +92,7 @@ export const API_MAP = {
   rentGuarantee: [
     E('POST', '/credit/payroll-limit', { purpose: 'rent_guarantee' }, { max_amount: 400000000 }, 'سقف از روی سابقه‌ی حقوق'),
     E('POST', '/rent-guarantees', { amount: 300000000, beneficiary: 'محمود کریمی', months: 12, fee: 'monthly_from_salary' }, { id: 'RG-5521', status: 'issued', verify_url: 'https://refah.bank/g/RG-5521' }),
-    E('GET', '/rent-guarantees/RG-5521/verify', null, { valid: true, amount: 300000000, tenant: 'احسان هاشمی', bank: 'Refah Kargaran' }, 'همان چیزی که صاحبخانه می‌بیند'),
+    E('GET', '/rent-guarantees/RG-5521/verify', null, { valid: true, amount: 300000000, tenant: 'آرش حمیدی', bank: 'Refah Kargaran' }, 'همان چیزی که صاحبخانه می‌بیند'),
   ],
   delegation: [
     E('GET', '/delegations', null, { items: [{ id: 'd1', delegate: 'reza', scopes: ['bills:pay', 'alerts:read', 'topup:buy'], monthly_cap: 2000000 }] }),
@@ -139,7 +139,7 @@ export const API_MAP = {
   ],
   devPortal: [E('GET', '/catalog', null, { apis: 14, sandbox: 'https://sandbox.refah-bank.ir', auth: 'OAuth2 + mTLS' })],
   transfer: [
-    E('GET', '/inquiry/owner?iban=IR..', null, { name: 'مریم هاشمی', bank: 'رفاه' }, 'استعلام صاحب حساب'),
+    E('GET', '/inquiry/owner?iban=IR..', null, { name: 'مریم حمیدی', bank: 'رفاه' }, 'استعلام صاحب حساب'),
     E('POST', '/transfers', { method: 'paya', amount: 30000000, otp: '••••' }, { id: 'TR-9921', status: 'queued', eta: '13:45' }),
   ],
   accounts: [E('GET', '/accounts', null, { items: 3 }), E('GET', '/accounts/ACC-1/transactions?from=1405-08-01', null, { items: 42 })],
@@ -158,7 +158,7 @@ export const API_MAP = {
   cases: [E('GET', '/cases', null, { items: 4 })],
   reportCard: [
     E('GET', '/insights/monthly?month=1405-08', null, { score: 16.5, categories: 6 }, 'فقط آمار جمع‌بندی‌شده'),
-    E('POST', 'https://api.avalai.ir/v1/chat/completions', { model: 'gpt-4o-mini', messages: [{ role: 'user', content: 'آمار جمع‌بندی‌شده…' }] }, { choices: [{ message: { content: 'احسان جان…' } }] }, 'هوش مصنوعی AvalAI'),
+    E('POST', 'https://api.avalai.ir/v1/chat/completions', { model: 'gpt-4o-mini', messages: [{ role: 'user', content: 'آمار جمع‌بندی‌شده…' }] }, { choices: [{ message: { content: 'آرش جان…' } }] }, 'هوش مصنوعی AvalAI'),
   ],
   inflation: [E('GET', '/insights/personal-inflation', null, { rate: 3.1, national: 2.6 })],
   fund: [E('GET', '/pools/FUND-1', null, { members: 6, balance: 18000000 })],

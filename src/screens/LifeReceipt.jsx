@@ -35,7 +35,7 @@ export default function LifeReceipt() {
         <div className="paper-head">
           <img src="./assets/app-icon.png" alt="" />
           <b>صورت‌حساب زندگی</b>
-          <span>آذر ۱۴۰۵ · احسان هاشمی</span>
+          <span>آذر ۱۴۰۵ · آرش حمیدی</span>
         </div>
         <div className="paper-rule" />
 

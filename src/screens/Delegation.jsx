@@ -13,7 +13,7 @@ const seed = [
   {
     id: 'd1',
     c: { id: 'reza', name: 'رضا' },
-    who: 'رضا هاشمی · پسرم',
+    who: 'رضا حمیدی · پسرم',
     perms: ['bills', 'alerts', 'topup'],
     cap: 2000000,
     until: '۳۰ اسفند ۱۴۰۵',
@@ -105,7 +105,7 @@ export default function Delegation() {
 }
 
 function AddDelegate({ onDone, onBack }) {
-  const [name, setName] = useState('مریم هاشمی · دخترم')
+  const [name, setName] = useState('مریم حمیدی · دخترم')
   const [on, setOn] = useState({ bills: true, alerts: true, topup: false, transfer: false })
   const [cap, setCap] = useState(2)
   const [otp, setOtp] = useState('')

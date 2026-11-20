@@ -6,8 +6,8 @@ import { toFa } from '../utils/fa'
 const PEOPLE = [
   { id: 'karimi', name: 'محمود کریمی', role: 'همکار · واحد تولید' },
   { id: 'reza', name: 'رضا محمدی', role: 'همکار · انبار' },
-  { id: 'maryam', name: 'مریم هاشمی', role: 'همکار · اداری' },
-  { id: 'dad', name: 'حسین هاشمی', role: 'همکار · نگهبانی' },
+  { id: 'maryam', name: 'مریم حمیدی', role: 'همکار · اداری' },
+  { id: 'dad', name: 'حسین حمیدی', role: 'همکار · نگهبانی' },
   { id: 'mom', name: 'فاطمه احمدی', role: 'همکار · حسابداری' },
   { id: 'x6', name: 'علی رضایی', role: 'همکار · تعمیرات' },
 ]

@@ -27,8 +27,8 @@ export default function P2PLoan() {
             <b>قرض‌نامه‌ی دیجیتال</b>
             <span dir="ltr">QN-2087</span>
           </div>
-          <div className="ip-row"><span>قرض‌دهنده</span><b>{role === 'lend' ? 'احسان هاشمی' : c.full}</b></div>
-          <div className="ip-row"><span>قرض‌گیرنده</span><b>{role === 'lend' ? c.full : 'احسان هاشمی'}</b></div>
+          <div className="ip-row"><span>قرض‌دهنده</span><b>{role === 'lend' ? 'آرش حمیدی' : c.full}</b></div>
+          <div className="ip-row"><span>قرض‌گیرنده</span><b>{role === 'lend' ? c.full : 'آرش حمیدی'}</b></div>
           <div className="ip-row"><span>مبلغ</span><b>{money(amt)} تومان</b></div>
           <div className="ip-row"><span>بازپرداخت</span><b>{toFa(n)} قسط، روز ۱ هر ماه (روز حقوق)</b></div>
           <div className="ip-row"><span>امضا</span><b className="ok-t">هر دو طرف ✓</b></div>

@@ -15,7 +15,7 @@ function CardFace({ c, frozen }) {
       <span className="bc-chip" />
       <div className="bc-no"><Num>{c.no}</Num></div>
       <div className="bc-bottom">
-        <span>احسان هاشمی</span>
+        <span>آرش حمیدی</span>
         <span>انقضا {c.exp}</span>
       </div>
       {frozen && (
