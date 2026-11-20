@@ -5,7 +5,7 @@ import { accounts, user } from '../data/mock'
 import { money, toFa } from '../utils/fa'
 
 // یک QR تزئینی ثابت (در نسخه‌ی واقعی: لینک استعلام اصالت گواهی)
-function FakeQR({ seed = 7, size = 92 }) {
+export function FakeQR({ seed = 7, size = 92 }) {
   const N = 21
   let x = seed
   const rnd = () => ((x = (x * 9301 + 49297) % 233280) / 233280)

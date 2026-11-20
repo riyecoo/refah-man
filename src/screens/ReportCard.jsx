@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Icon from '../components/Icon'
 import { Btn, Card, Screen, Section, useApp } from '../components/ui'
 import { reportCard as R, user } from '../data/mock'
@@ -10,6 +11,51 @@ const TIP_TO = [['life'], ['goals'], ['security']]
 // کارنامه‌ی ماه: نمره‌ی انضباط مالی از ۲۰، مثل کارنامه‌ی مدرسه
 export default function ReportCard() {
   const { push, toast } = useApp()
+  const [note, setNote] = useState(R.note)
+  const [ai, setAi] = useState('idle') // idle | busy | live | offline
+  const [key, setKey] = useState(() => {
+    try {
+      return localStorage.getItem('avalai-key') || ''
+    } catch {
+      return ''
+    }
+  })
+  // فقط آمار جمع‌بندی‌شده به هوش مصنوعی فرستاده می‌شود، نه تراکنش‌ها
+  const askAI = async () => {
+    const k = key || window.prompt('کلید API اول‌ای‌آی (AvalAI) را وارد کنید؛ اگر ندارید خالی بگذارید:') || ''
+    if (k) {
+      setKey(k)
+      try {
+        localStorage.setItem('avalai-key', k)
+      } catch {}
+    }
+    setAi('busy')
+    const stats = R.subjects.map(([t, v, why]) => `${t}: ${v} از ۲۰ (${why})`).join('\n')
+    try {
+      if (!k) throw new Error('no key')
+      const r = await fetch('https://api.avalai.ir/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${k}` },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'تو مشاور مالی مهربان بانک رفاه کارگران هستی. به فارسی خودمانی، بدون سرزنش، حداکثر ۴ جمله، با یک پیشنهاد عددی مشخص بنویس.' },
+            { role: 'user', content: `نام: ${user.first}\nماه: ${R.month}\nمعدل: ${R.score} (ماه قبل ${R.prev})\n${stats}` },
+          ],
+        }),
+      })
+      const j = await r.json()
+      const t = j?.choices?.[0]?.message?.content
+      if (!t) throw new Error('empty')
+      setNote(t.trim())
+      setAi('live')
+    } catch {
+      setTimeout(() => {
+        setNote(R.note)
+        setAi('offline')
+      }, 900)
+    }
+  }
   const diff = R.score - R.prev
   return (
     <Screen
@@ -68,7 +114,12 @@ export default function ReportCard() {
         <b>
           <Icon name="chat" size={16} /> نظر مشاور
         </b>
-        <p>{R.note}</p>
+        <p className={ai === 'busy' ? 'ai-busy' : ''}>{ai === 'busy' ? 'در حال تحلیل آمار ماه…' : note}</p>
+        <button className="ai-btn" onClick={askAI} disabled={ai === 'busy'}>
+          <Icon name="bolt" size={15} /> {ai === 'live' ? 'دوباره بنویس' : 'تحلیل با هوش مصنوعی AvalAI'}
+        </button>
+        {ai === 'live' && <span className="ai-tag ok">متن زنده از AvalAI</span>}
+        {ai === 'offline' && <span className="ai-tag">اتصال برقرار نشد؛ متن آماده‌ی آفلاین نمایش داده شد</span>}
         <span className="muted small">این متن را هوش مصنوعی فقط از روی آمار جمع‌بندی‌شده‌ی ماه نوشته است؛ ریز تراکنش‌های شما از بانک بیرون نمی‌رود.</span>
       </Card>
 

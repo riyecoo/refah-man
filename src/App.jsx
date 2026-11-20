@@ -23,6 +23,12 @@ import { CloseAccount, Appointment } from './screens/Branchless'
 import ReportCard from './screens/ReportCard'
 import Inflation from './screens/Inflation'
 import { seedCases } from './data/mock'
+import Consents, { ConsentRequest } from './screens/Consents'
+import IncomePassport from './screens/IncomePassport'
+import EarnedWage from './screens/EarnedWage'
+import DevPortal from './screens/DevPortal'
+import ApiPanel from './components/ApiPanel'
+import { seedConsents } from './data/openApi'
 
 const SCREENS = {
   home: Home,
@@ -60,6 +66,11 @@ const SCREENS = {
   appointment: Appointment,
   reportCard: ReportCard,
   inflation: Inflation,
+  consents: Consents,
+  consentRequest: ConsentRequest,
+  passport: IncomePassport,
+  ewa: EarnedWage,
+  devPortal: DevPortal,
 }
 const TABS = ['home', 'accounts', 'cards', 'profile']
 
@@ -88,6 +99,9 @@ export default function App() {
   const [crowd, setCrowd] = useState(() => load('yar-crowd', false))
   const [devicePending, setDevicePending] = useState(true)
   const [cases, setCases] = useState(seedCases)
+  const [consents, setConsents] = useState(seedConsents)
+  const [devMode, setDevMode] = useState(() => load('yar-dev', false))
+  useEffect(() => save('yar-dev', devMode), [devMode])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -133,7 +147,7 @@ export default function App() {
     () => ({
       push, pop, reset, toast,
       theme, setTheme, simple, setSimple, hideBal, setHideBal, frozen, setFrozen,
-      crowd, setCrowd, devicePending, setDevicePending, cases, addCase,
+      crowd, setCrowd, devicePending, setDevicePending, cases, addCase, consents, setConsents, devMode, setDevMode,
       lock: () => setPhase('lock'),
       logout: () => {
         save('yar-registered', false)
@@ -141,7 +155,7 @@ export default function App() {
         setPhase('login')
       },
     }),
-    [push, pop, reset, toast, theme, simple, hideBal, frozen, crowd, devicePending, cases, addCase],
+    [push, pop, reset, toast, theme, simple, hideBal, frozen, crowd, devicePending, cases, addCase, consents, devMode],
   )
 
   useEffect(() => {
@@ -173,6 +187,7 @@ export default function App() {
               <S {...(top.params || {})} />
             </div>
             {isTab && <TabBar current={top.name} />}
+            {devMode && <ApiPanel screen={top.name} key={top.name} />}
           </>
         )}
         {toastMsg && (

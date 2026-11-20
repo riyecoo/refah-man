@@ -162,6 +162,7 @@ export default function Home() {
 
         <Countdown />
 
+        <OpenRefah />
         <BranchInPocket />
 
         <button className="card fund-banner" onClick={() => push('fund')}>
@@ -256,6 +257,45 @@ const POCKET = [
   ['closeAccount', 'lock', 'بستن حساب'],
   ['appointment', 'cal', 'نوبت شعبه'],
 ]
+
+// «رفاه باز»: داده‌ی حقوق، با رضایت مشتری، به‌جای ضامن و قرض آخر ماه
+function OpenRefah() {
+  const { push, consents } = useApp()
+  return (
+    <section className="sec">
+      <div className="sec-head">
+        <h2>رفاه باز</h2>
+        <button className="link" onClick={() => push('devPortal')}>
+          پرتال API
+        </button>
+      </div>
+      <button className="or-ewa" onClick={() => push('ewa')}>
+        <span className="or-ewa-ic">
+          <Icon name="wallet" size={22} />
+        </span>
+        <span className="grow">
+          <b>۷٫۲ میلیون از حقوقت آماده است</b>
+          <small>حقوق ۱۸ روز کارکرد؛ بی‌سود، همین حالا</small>
+        </span>
+        <Icon name="chev" size={18} />
+      </button>
+      <div className="pocket">
+        <button className="pk" onClick={() => push('passport')}>
+          <span className="pk-ic"><Icon name="qr" size={20} /></span>
+          <span>پاسپورت حقوق</span>
+        </button>
+        <button className="pk" onClick={() => push('consents')}>
+          <span className="pk-ic"><Icon name="shield" size={20} /></span>
+          <span>مرکز رضایت‌ها ({toFa(consents.length)})</span>
+        </button>
+        <button className="pk" onClick={() => push('devPortal')}>
+          <span className="pk-ic"><Icon name="code" size={20} /></span>
+          <span>پرتال API</span>
+        </button>
+      </div>
+    </section>
+  )
+}
 
 // «شعبه در جیب»: کارهایی که تا امروز رفتن به شعبه می‌خواست
 function BranchInPocket() {
