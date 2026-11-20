@@ -89,6 +89,25 @@ export const API_MAP = {
     E('POST', '/payroll/advances', { amount: 5000000, repay: 'next_payday' }, { id: 'ADV-311', status: 'paid', repay_on: '1405-10-01' }),
     E('POST', '/employers/{id}/payroll-feed', { worked_days: 18 }, { ok: true }, 'سمت کارفرما: روزهای کارکرد را می‌فرستد'),
   ],
+  rentGuarantee: [
+    E('POST', '/credit/payroll-limit', { purpose: 'rent_guarantee' }, { max_amount: 400000000 }, 'سقف از روی سابقه‌ی حقوق'),
+    E('POST', '/rent-guarantees', { amount: 300000000, beneficiary: 'محمود کریمی', months: 12, fee: 'monthly_from_salary' }, { id: 'RG-5521', status: 'issued', verify_url: 'https://refah.bank/g/RG-5521' }),
+    E('GET', '/rent-guarantees/RG-5521/verify', null, { valid: true, amount: 300000000, tenant: 'احسان هاشمی', bank: 'Refah Kargaran' }, 'همان چیزی که صاحبخانه می‌بیند'),
+  ],
+  delegation: [
+    E('GET', '/delegations', null, { items: [{ id: 'd1', delegate: 'reza', scopes: ['bills:pay', 'alerts:read', 'topup:buy'], monthly_cap: 2000000 }] }),
+    E('POST', '/delegations', { delegate_mobile: '0912…', scopes: ['bills:pay', 'alerts:read'], monthly_cap: 2000000, expires_in: '6m' }, { id: 'd2', status: 'awaiting_delegate' }),
+    E('DELETE', '/delegations/{id}', null, { status: 'revoked' }, 'لغو با یک لمس'),
+  ],
+  groupGuarantee: [
+    E('POST', '/loans/applications', { amount: 200000000, guarantee: 'split' }, { id: 'LA-90' }),
+    E('POST', '/loans/LA-90/guarantors/split', { guarantors: 5, share_pct: 20 }, { invites_sent: 5 }),
+    E('POST', '/guarantees/{id}/sign', { otp: '••••' }, { signed: true }, 'هر همکار در گوشی خودش'),
+  ],
+  p2pLoan: [
+    E('POST', '/p2p-loans', { counterparty: 'maryam', amount: 10000000, installments: 5, day: 1 }, { id: 'QN-2087', status: 'awaiting_counterparty' }),
+    E('POST', '/payments/mandates', { from: 'borrower', to: 'lender', amount: 2000000, schedule: 'monthly@payday' }, { id: 'MD-77', status: 'active' }, 'کسر خودکار قسط در روز حقوق'),
+  ],
   devPortal: [E('GET', '/catalog', null, { apis: 14, sandbox: 'https://sandbox.refah-bank.ir', auth: 'OAuth2 + mTLS' })],
   transfer: [
     E('GET', '/inquiry/owner?iban=IR..', null, { name: 'مریم هاشمی', bank: 'رفاه' }, 'استعلام صاحب حساب'),
@@ -122,6 +141,7 @@ export const CATALOG = [
   ['احراز و رضایت', [['POST', '/consents'], ['DELETE', '/consents/{id}'], ['POST', '/kyc/shahkar']]],
   ['داده‌ی حقوق (انحصاری رفاه)', [['GET', '/payroll/earned'], ['POST', '/payroll/advances'], ['POST', '/income-passports'], ['GET', '/income-passports/{id}/verify']]],
   ['حساب و پرداخت', [['GET', '/accounts'], ['GET', '/accounts/{id}/transactions'], ['POST', '/transfers'], ['POST', '/payments/mandates']]],
+  ['ایده‌های تازه', [['POST', '/rent-guarantees'], ['POST', '/delegations'], ['POST', '/loans/{id}/guarantors/split'], ['POST', '/p2p-loans']]],
   ['اعتبار و وام', [['POST', '/credit/score'], ['POST', '/loans/applications'], ['POST', '/promissory-notes']]],
 ]
 

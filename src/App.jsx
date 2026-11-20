@@ -28,6 +28,10 @@ import IncomePassport from './screens/IncomePassport'
 import EarnedWage from './screens/EarnedWage'
 import DevPortal from './screens/DevPortal'
 import ApiPanel from './components/ApiPanel'
+import RentGuarantee from './screens/RentGuarantee'
+import Delegation from './screens/Delegation'
+import GroupGuarantee from './screens/GroupGuarantee'
+import P2PLoan from './screens/P2PLoan'
 import { seedConsents } from './data/openApi'
 
 const SCREENS = {
@@ -71,6 +75,10 @@ const SCREENS = {
   passport: IncomePassport,
   ewa: EarnedWage,
   devPortal: DevPortal,
+  rentGuarantee: RentGuarantee,
+  delegation: Delegation,
+  groupGuarantee: GroupGuarantee,
+  p2pLoan: P2PLoan,
 }
 const TABS = ['home', 'accounts', 'cards', 'profile']
 
