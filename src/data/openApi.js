@@ -139,6 +139,7 @@ export const API_MAP = {
     E('GET', '/recommendations?explain=true', null, { items: [{ product: 'rent_guarantee', reason: 'monthly_rent_12M' }] }, 'پیشنهاد «برای تو» با دلیل'),
   ],
   guard: [],
+  mirror: [E('GET', '/insights/trend?months=6', null, { spend: [21.4, 20.8, 22.6, 19.9, 19.1, 18.8], save: [0.9, 1.1, 0.6, 1.4, 1.6, 1.9], persona_path: ['weekend_spender', 'steady_saver'] }, 'فقط آمار جمع‌بندی‌شده')],
   devPortal: [E('GET', '/catalog', null, { apis: 14, sandbox: 'https://sandbox.refah-bank.ir', auth: 'OAuth2 + mTLS' })],
   transfer: [
     E('GET', '/inquiry/owner?iban=IR..', null, { name: 'مریم حمیدی', bank: 'رفاه' }, 'استعلام صاحب حساب'),
@@ -187,7 +188,7 @@ export const PARTNERS = [
 export const CHALLENGES = [
   [1, 'محاسبه‌ی ارزش طول عمر مشتری', 'نمای بانک: CLV به تفکیک گروه و هر مشتری', 'bankDash'],
   [2, 'تحلیل رفتار مشتریان رویگردان', 'نمای بانک: هشدار رویگردانی با سیگنال رفتاری و اقدام نگه‌داشت', 'bankDash'],
-  [3, 'تحلیل رفتار و توصیه به مشتری', 'کارنامه‌ی ماه، تورم شخصی، تقویم پول', 'reportCard'],
+  [3, 'تحلیل رفتار و توصیه به مشتری', 'آینه‌ی مالی من (روند ۶ ماهه و عادت‌ها)، کارنامه‌ی ماه، تورم شخصی', 'mirror'],
   [4, 'معرفی خودکار محصول متناسب با رفتار', '«برای تو» در خانه، با دلیل شفاف؛ پیشنهادهای کارنامه', 'home'],
   [6, 'دستیار هوش مصنوعی', 'مشاور AvalAI در کارنامه‌ی ماه', 'reportCard'],
   [7, 'وام خرد بسیار سریع', 'حقوق کارکرده: برداشت فوری بی‌سود', 'ewa'],

@@ -23,6 +23,7 @@ export function Profile() {
           <Row icon="shield" title="مرکز رضایت‌ها" sub="اپ‌هایی که با «رفاه باز» به حسابتان وصل‌اند" onClick={() => push('consents')} chevron />
           <Row icon="box" title="پرونده‌های من" sub="رهگیری همه‌ی درخواست‌ها، مرحله‌به‌مرحله" onClick={() => push('cases')} chevron />
           <Row icon="user" title="اطلاعات شخصی و شماره همراه" sub={`کد ملی ${user.nationalId}`} onClick={() => push('identity')} chevron />
+          <Row icon="eye" title="آینه‌ی مالی من" sub="شش ماه با رفاه: چه جور آدمی با پولت هستی" onClick={() => push('mirror')} chevron />
           <Row icon="star" title="کارنامه‌ی ماه" sub="معدل آبان: ۱۶٫۵" onClick={() => push('reportCard')} chevron />
           <Row icon="shield" title="امنیت و رمزها" onClick={() => push('security')} chevron />
           <Row icon="phone" title="دستگاه‌های فعال" sub={`${toFa(devices.length)} دستگاه`} onClick={() => push('devices')} chevron />

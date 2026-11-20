@@ -39,6 +39,7 @@ import MedicalInstallment from './screens/MedicalInstallment'
 import GroupBuy from './screens/GroupBuy'
 import BankDashboard from './screens/BankDashboard'
 import CityPay from './screens/CityPay'
+import Mirror from './screens/Mirror'
 import { seedConsents } from './data/openApi'
 
 const SCREENS = {
@@ -91,6 +92,7 @@ const SCREENS = {
   groupBuy: GroupBuy,
   bankDash: BankDashboard,
   cityPay: CityPay,
+  mirror: Mirror,
 }
 const TABS = ['home', 'accounts', 'cards', 'profile']
 

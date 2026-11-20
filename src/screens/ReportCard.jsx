@@ -134,6 +134,9 @@ export default function ReportCard() {
           ))}
         </div>
       </Section>
+      <Btn kind="soft" className="block" style={{ marginBottom: 10 }} onClick={() => push('mirror')}>
+        <Icon name="eye" size={18} /> آینه‌ی مالی من: شش ماه گذشته
+      </Btn>
       <Btn kind="soft" onClick={() => push('inflation')}>
         <Icon name="trend" size={18} /> تورم شخصی من در همین ماه
       </Btn>
