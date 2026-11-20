@@ -21,7 +21,6 @@ export function Profile() {
       <Section title="حساب کاربری">
         <Card className="list">
           <Row icon="shield" title="مرکز رضایت‌ها" sub="اپ‌هایی که با «رفاه باز» به حسابتان وصل‌اند" onClick={() => push('consents')} chevron />
-          <Row icon="code" title="رفاه باز · پرتال API" sub="حالت توسعه‌دهنده و فهرست APIها" onClick={() => push('devPortal')} chevron />
           <Row icon="box" title="پرونده‌های من" sub="رهگیری همه‌ی درخواست‌ها، مرحله‌به‌مرحله" onClick={() => push('cases')} chevron />
           <Row icon="user" title="اطلاعات شخصی و شماره همراه" sub={`کد ملی ${user.nationalId}`} onClick={() => push('identity')} chevron />
           <Row icon="star" title="کارنامه‌ی ماه" sub="معدل آبان: ۱۶٫۵" onClick={() => push('reportCard')} chevron />
@@ -38,6 +37,13 @@ export function Profile() {
           <Row icon="star" title="▶ حالت ارائه برای داورها" sub="یک داستان ۷ قدمی: از ایده تا نمای بانک" onClick={() => setPitch(true)} chevron />
           <Row icon="text" title="حالت ساده" sub="متن درشت و فقط کارهای اصلی؛ مناسب پدر و مادرها" end={<Toggle on={simple} onChange={setSimple} label="حالت ساده" />} />
           <Row icon="eyeOff" title="پنهان کردن موجودی در خانه" end={<Toggle on={hideBal} onChange={setHideBal} label="پنهان کردن موجودی" />} />
+        </Card>
+      </Section>
+
+      <Section title="برای توسعه‌دهندگان و بانک">
+        <Card className="list">
+          <Row icon="code" title="پرتال API و چالش‌های اینوکاپ" sub="فهرست APIهای رفاه باز و حالت توسعه‌دهنده" onClick={() => push('devPortal')} chevron />
+          <Row icon="chart" title="نمای بانک: تحلیل مشتری" sub="ارزش طول عمر و هشدار رویگردانی (مخصوص کارشناس بانک)" onClick={() => push('bankDash')} chevron />
         </Card>
       </Section>
 

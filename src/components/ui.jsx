@@ -33,6 +33,7 @@ export function Num({ children }) {
 // راهنمای «؟»: برای هر صفحه توضیح می‌دهد این صفحه چیست و چطور کار می‌کند
 export function HelpButton({ screen, cls = 'hdr-btn help-btn' }) {
   const [open, setOpen] = useState(false)
+  const { devMode } = useApp()
   const h = HELP[screen]
   if (!h) return null
   const [title, what, how = [], why] = h
@@ -56,7 +57,7 @@ export function HelpButton({ screen, cls = 'hdr-btn help-btn' }) {
             <Icon name="star" size={16} /> {why}
           </div>
         )}
-        {apis.length > 0 && (
+        {devMode && apis.length > 0 && (
           <div className="help-api" dir="ltr">
             {apis.slice(0, 3).map((c, i) => (
               <div key={i} className="api-line">

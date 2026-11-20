@@ -297,9 +297,6 @@ function OpenRefah() {
     <section className="sec">
       <div className="sec-head">
         <h2>رفاه باز</h2>
-        <button className="link" onClick={() => push('devPortal')}>
-          پرتال API
-        </button>
       </div>
       <button className="or-ewa gb-home" onClick={() => push('groupBuy')}>
         <span className="or-ewa-ic">
@@ -330,22 +327,19 @@ function OpenRefah() {
           <span className="pk-ic"><Icon name="shield" size={20} /></span>
           <span>مرکز رضایت‌ها ({toFa(consents.length)})</span>
         </button>
-        <button className="pk" onClick={() => push('devPortal')}>
-          <span className="pk-ic"><Icon name="code" size={20} /></span>
-          <span>پرتال API</span>
+        <button className="pk" onClick={() => push('rentGuarantee')}>
+          <span className="pk-ic"><Icon name="home" size={20} /></span>
+          <span>ودیعه‌ی بانکی</span>
         </button>
       </div>
       <div className="pocket pocket-more">
         {[
-          ['rentGuarantee', 'home', 'ودیعه‌ی بانکی'],
           ['groupGuarantee', 'users', 'ضمانت جمعی'],
           ['p2pLoan', 'doc', 'قرض‌نامه‌ی دوستانه'],
           ['delegation', 'key', 'دسترسی امانی'],
           ['employerMatch', 'piggy', 'پس‌انداز با سهم کارفرما'],
           ['medical', 'heart', 'درمان قسطی'],
           ['cityPay', 'send', 'پرداخت شهری'],
-          ['bankDash', 'chart', 'نمای بانک: تحلیل مشتری'],
-          ['groupBuy', 'bag', 'رفاه‌بازار'],
         ].map(([to, ic, t]) => (
           <button key={to} className="pk" onClick={() => push(to)}>
             <span className="pk-ic"><Icon name={ic} size={20} /></span>
