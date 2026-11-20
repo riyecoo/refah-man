@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Icon from '../components/Icon'
-import { Btn, Card, Num, OtpField, Screen, Section, useApp } from '../components/ui'
+import { Btn, Card, Guard, Num, OtpField, Screen, Section, useApp } from '../components/ui'
+import { AFTER_PAYDAY } from '../data/guard'
 import { ewa } from '../data/openApi'
 import { money, toFa } from '../utils/fa'
 
@@ -15,6 +16,15 @@ export default function EarnedWage() {
   const [paid, setPaid] = useState(0)
   const [otp, setOtp] = useState('')
   const [done, setDone] = useState(false)
+  // نگهبان مالی: بعد از کسر این مبلغ، روز حقوق برای تعهدات کافی است؟
+  const due = AFTER_PAYDAY.reduce((s, [, v]) => s + v, 0)
+  const payNext = ewa.salary - ewaTaken - amt
+  const gap = payNext - due
+  const g = {
+    tone: gap >= 3000000 ? 'ok' : gap >= 0 ? 'warn' : 'risk',
+    title: gap >= 3000000 ? 'روز حقوق برای اجاره و قسط‌ها کافی است' : gap >= 0 ? 'روز حقوق، بعد از تعهدات تقریباً چیزی نمی‌ماند' : `روز حقوق ${M(-gap)} میلیون برای تعهدات کم می‌آوری`,
+    lines: [`حقوق ${ewa.payday} بعد از کسر این برداشت: ${M(payNext)} میلیون`, `اجاره و قسط مسکن (چند روز اول بعد از حقوق): ${M(due)} میلیون`, gap >= 0 ? `بعد از همه، می‌ماند: ${M(gap)} میلیون` : 'پیشنهاد: کمتر بردار، یا قسط ازدواج را یک ماه عقب بینداز'],
+  }
 
   if (done)
     return (
@@ -86,6 +96,8 @@ export default function EarnedWage() {
           به‌جای قرض از همکار یا وام گران آخر ماه. روزهای کارکرد را <b>{ewa.employer}</b> از راه API به بانک می‌فرستد.
         </span>
       </Card>
+
+      {avail >= 500000 && <Guard g={g} fixLabel="مبلغ امن را انتخاب کن" onFix={() => setAmt(Math.min(avail, Math.max(500000, Math.floor((ewa.salary - ewaTaken - due - 3000000) / 500000) * 500000)))} />}
 
       <Section title="تأیید با رمز دوم پویا">
         <OtpField value={otp} onChange={setOtp} />

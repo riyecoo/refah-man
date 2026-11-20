@@ -978,3 +978,15 @@ button.row:hover { background: var(--surface-2); }
 .pb-prev:disabled { opacity: .4; }
 .pb-next { background: var(--magenta); color: #fff; }
 .pb-mini { position: absolute; left: 12px; bottom: 140px; z-index: 45; background: var(--magenta); color: #fff; font-weight: 800; padding: 8px 14px; border-radius: 99px; box-shadow: 0 10px 24px -10px rgba(0,0,0,.6); }
+/* ===== نگهبان مالی ===== */
+.guard { border-radius: 16px; padding: 12px 14px; margin: 12px 0; border: 1px solid; }
+.guard.ok { background: var(--ok-soft); border-color: #b9e2c9; color: #155c3b; }
+.guard.warn { background: var(--warn-soft); border-color: #f0d3a3; color: #7a4a08; }
+.guard.risk { background: var(--danger-soft); border-color: #f3bccd; color: #8f1f45; }
+.guard-h { display: flex; align-items: center; gap: 8px; }
+.guard-h b { flex: 1; font-size: .92em; }
+.guard-tag { font-size: .66em; font-weight: 800; padding: 2px 8px; border-radius: 99px; background: rgba(255,255,255,.6); white-space: nowrap; }
+.guard ul { margin: 8px 0 0; padding-right: 18px; font-size: .8em; line-height: 1.9; }
+.guard-note { font-size: .74em; opacity: .85; margin-top: 6px; }
+.guard-fix { margin-top: 8px; width: 100%; padding: 9px; border-radius: 12px; background: rgba(255,255,255,.75); font-weight: 700; font-size: .82em; color: inherit; }
+:root[data-theme='dark'] .guard { color: inherit; }

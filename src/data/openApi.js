@@ -105,6 +105,7 @@ export const API_MAP = {
     E('POST', '/guarantees/{id}/sign', { otp: '••••' }, { signed: true }, 'هر همکار در گوشی خودش'),
   ],
   p2pLoan: [
+    E('POST', '/affordability/check', { counterparty: 'maryam', monthly: 2000000, consent: 'cn-p2p-7' }, { tone: 'risk', free_monthly_band: '1-2M', ratio: 1.33, months_regular: 14 }, 'نگهبان مالی: فقط «بازه»، با رضایت طرف مقابل'),
     E('POST', '/p2p-loans', { counterparty: 'maryam', amount: 10000000, installments: 5, day: 1 }, { id: 'QN-2087', status: 'awaiting_counterparty' }),
     E('POST', '/payments/mandates', { from: 'borrower', to: 'lender', amount: 2000000, schedule: 'monthly@payday' }, { id: 'MD-77', status: 'active' }, 'کسر خودکار قسط در روز حقوق'),
   ],
@@ -137,6 +138,7 @@ export const API_MAP = {
     E('GET', '/payroll/earned', null, { earned: 14400000, available: 7200000, payday: '1405-10-01' }, 'حقوق کارکرده'),
     E('GET', '/recommendations?explain=true', null, { items: [{ product: 'rent_guarantee', reason: 'monthly_rent_12M' }] }, 'پیشنهاد «برای تو» با دلیل'),
   ],
+  guard: [],
   devPortal: [E('GET', '/catalog', null, { apis: 14, sandbox: 'https://sandbox.refah-bank.ir', auth: 'OAuth2 + mTLS' })],
   transfer: [
     E('GET', '/inquiry/owner?iban=IR..', null, { name: 'مریم حمیدی', bank: 'رفاه' }, 'استعلام صاحب حساب'),

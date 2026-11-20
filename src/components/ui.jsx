@@ -278,3 +278,29 @@ export const Empty = ({ art = 'st-empty', title, sub }) => (
     {sub && <div className="muted small">{sub}</div>}
   </div>
 )
+
+// «نگهبان مالی»: کارت هشدار هوشمند قبل از هر تصمیم پولی
+export function Guard({ g, fixLabel, onFix, note }) {
+  if (!g) return null
+  const ic = g.tone === 'ok' ? 'check' : g.tone === 'warn' ? 'alert' : 'shield'
+  return (
+    <div className={`guard ${g.tone}`} role="status">
+      <div className="guard-h">
+        <Icon name={ic} size={18} />
+        <b>{g.title}</b>
+        <span className="guard-tag">نگهبان مالی</span>
+      </div>
+      <ul>
+        {g.lines.map((l) => (
+          <li key={l}>{l}</li>
+        ))}
+      </ul>
+      {note && <div className="guard-note">{note}</div>}
+      {onFix && g.tone !== 'ok' && (
+        <button className="guard-fix" onClick={onFix}>
+          {fixLabel}
+        </button>
+      )}
+    </div>
+  )
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Icon from '../components/Icon'
-import { Avatar, Btn, Card, OtpField, Screen, Section, useApp } from '../components/ui'
+import { Avatar, Btn, Card, Guard, OtpField, Screen, Section, useApp } from '../components/ui'
+import { COUNTER, assess, myFreeMonthly } from '../data/guard'
 import { contacts } from '../data/mock'
 import { money, toFa } from '../utils/fa'
 
@@ -17,6 +18,29 @@ export default function P2PLoan() {
   const [done, setDone] = useState(false)
   const c = contacts.find((x) => x.id === to)
   const per = Math.round(amt / n)
+  // نگهبان مالی: آیا قرض‌گیرنده از پس قسط برمی‌آید؟
+  const cp = COUNTER[to] || { free: 2000000, months: 12, band: 'نامشخص', late: 0 }
+  const g =
+    amt >= 3000000
+      ? role === 'lend'
+        ? assess({
+            monthly: per,
+            free: cp.free,
+            who: c.name,
+            extra: [`سابقه‌ی واریز منظم: ${toFa(cp.months)} ماه · ${cp.band}`, ...(cp.late ? [`${toFa(cp.late)} قسط دیرکرد در ۱۲ ماه اخیر`] : [])],
+          })
+        : assess({ monthly: per, free: myFreeMonthly(), who: 'شما' })
+      : null
+  const fix = () => {
+    const free = role === 'lend' ? cp.free : myFreeMonthly()
+    const need = Math.ceil(amt / Math.max(free * 0.5, 1))
+    if (need <= 10 && need > n) setN([1, 3, 5, 10].find((x) => x >= need))
+    else {
+      const k = need > 10 ? 10 : n
+      setN(k)
+      setAmt(Math.max(1000000, Math.floor((free * 0.5 * k) / 1e6) * 1e6))
+    }
+  }
 
   if (done)
     return (
@@ -90,6 +114,13 @@ export default function P2PLoan() {
           </div>
         </Card>
       </Section>
+
+      <Guard
+        g={g}
+        fixLabel="پیشنهاد امن: قسط‌ها را بیشتر یا مبلغ را کمتر کن"
+        onFix={fix}
+        note={role === 'lend' ? `فقط «بازه»ی توان بازپرداخت ${c.name} دیده می‌شود، با رضایت خودش؛ نه موجودی و نه گردش حسابش.` : null}
+      />
 
       <Section title="امضای شما با رمز دوم پویا">
         <OtpField value={otp} onChange={setOtp} />

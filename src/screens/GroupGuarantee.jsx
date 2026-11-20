@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Icon from '../components/Icon'
-import { Avatar, Btn, Card, Screen, Section, useApp } from '../components/ui'
+import { Avatar, Btn, Card, Guard, Screen, Section, useApp } from '../components/ui'
+import { assess, myFreeMonthly } from '../data/guard'
 import { toFa } from '../utils/fa'
 
 const PEOPLE = [
@@ -52,6 +53,12 @@ export default function GroupGuarantee() {
           <input type="range" className="ewa-range" disabled={sent} min={50000000} max={500000000} step={10000000} value={amt} onChange={(e) => setAmt(+e.target.value)} />
         </Card>
       </Section>
+
+      <Guard
+        g={assess({ monthly: Math.round((amt * 1.23) / 36), free: myFreeMonthly(), who: 'شما', extra: ['۳۶ قسط با سود ۱۸٪ (نمونه)', 'ضامن‌ها هم همین ارزیابی را قبل از امضا می‌بینند'] })}
+        fixLabel="مبلغ امن را انتخاب کن"
+        onFix={() => setAmt(Math.max(50000000, Math.floor((myFreeMonthly() * 0.5 * 36) / 1.23 / 1e7) * 1e7))}
+      />
 
       <Section title={`ضامن‌ها (${toFa(picked.length)} نفر · هر نفر ${toFa(share)}٪ = ${M((amt * share) / 100)} میلیون)`}>
         <Card className="list">

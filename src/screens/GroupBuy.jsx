@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Icon from '../components/Icon'
-import { Btn, Card, OtpField, Screen, Section, useApp } from '../components/ui'
+import { Btn, Card, Guard, OtpField, Screen, Section, useApp } from '../components/ui'
+import { assess, myFreeMonthly } from '../data/guard'
 import { accounts } from '../data/mock'
 import { money, toFa } from '../utils/fa'
 
@@ -219,6 +220,7 @@ function Deal({ d, onBack }) {
               </label>
             </Card>
           </Section>
+          <Guard g={pay === 'bnpl' ? assess({ monthly: inst, free: myFreeMonthly(), who: 'شما', extra: ['قسط‌های بعدی روز حقوق کسر می‌شود؛ بعد از اجاره و وام‌ها'] }) : null} />
           <Section title="تأیید با رمز دوم پویا">
             <OtpField value={otp} onChange={setOtp} />
           </Section>
