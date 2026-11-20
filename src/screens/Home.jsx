@@ -161,6 +161,7 @@ export default function Home() {
 
         <Countdown />
 
+        <ForYou />
         <OpenRefah />
         <BranchInPocket />
 
@@ -257,6 +258,36 @@ const POCKET = [
   ['appointment', 'cal', 'نوبت شعبه'],
 ]
 
+// «برای تو»: پیشنهاد شخصی از روی رفتار خود کاربر، با دلیلِ شفاف (چالش ۴)
+const FOR_YOU = [
+  ['rentGuarantee', 'home', 'هر ماه ۱۲ میلیون اجاره می‌دهی', 'با «ودیعه‌ی بانکی»، ۳۰۰ میلیون پول رهنت آزاد می‌شود'],
+  ['cityPay', 'send', 'این ماه ۲۳ بار اسنپ و مترو', 'با «پرداخت شهری» بدون رمز و با یک لمس بپرداز'],
+  ['employerMatch', 'piggy', 'کارفرمای تو سهم پس‌انداز می‌دهد', 'ماهی ۱٫۲ میلیون هدیه‌ی کارفرما را از دست نده'],
+]
+function ForYou() {
+  const { push } = useApp()
+  const [i, setI] = useState(0)
+  const [to, ic, why, what] = FOR_YOU[i]
+  return (
+    <section className="sec">
+      <div className="sec-head">
+        <h2>برای تو</h2>
+        <button className="link" onClick={() => setI((i + 1) % FOR_YOU.length)}>
+          بعدی ({toFa(i + 1)}/{toFa(FOR_YOU.length)})
+        </button>
+      </div>
+      <button className="fy-card" onClick={() => push(to)}>
+        <span className="pk-ic"><Icon name={ic} size={20} /></span>
+        <span className="grow">
+          <small>چون {why}</small>
+          <b>{what}</b>
+        </span>
+        <Icon name="chev" size={18} />
+      </button>
+    </section>
+  )
+}
+
 // «رفاه باز»: داده‌ی حقوق، با رضایت مشتری، به‌جای ضامن و قرض آخر ماه
 function OpenRefah() {
   const { push, consents, ewaTaken } = useApp()
@@ -312,6 +343,9 @@ function OpenRefah() {
           ['delegation', 'key', 'دسترسی امانی'],
           ['employerMatch', 'piggy', 'پس‌انداز با سهم کارفرما'],
           ['medical', 'heart', 'درمان قسطی'],
+          ['cityPay', 'send', 'پرداخت شهری'],
+          ['bankDash', 'chart', 'نمای بانک: تحلیل مشتری'],
+          ['groupBuy', 'bag', 'رفاه‌بازار'],
         ].map(([to, ic, t]) => (
           <button key={to} className="pk" onClick={() => push(to)}>
             <span className="pk-ic"><Icon name={ic} size={20} /></span>

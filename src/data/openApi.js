@@ -124,6 +124,19 @@ export const API_MAP = {
     E('POST', '/bnpl/instant-decision', { amount: 2700000, installments: 4 }, { approved: true, decision_ms: 2400 }, 'خرید اعتباری زیر ۱ دقیقه'),
     E('POST', '/merchants/{id}/campaigns', { price: 5000000, deal: 3000000, capacity: 1000 }, { id: 'CMP-12', status: 'live' }, 'سمت فروشگاه'),
   ],
+  bankDash: [
+    E('GET', '/analytics/clv?segment=all', null, { segments: [{ name: 'worker', clv: 1240000, churn_90d: 0.18 }] }, 'ارزش طول عمر مشتری'),
+    E('GET', '/analytics/churn-risk?week=current', null, { items: [{ customer: 'c1', risk: 0.82, signals: ['salary_outflow_24h', 'app_sessions_drop', 'loan_ending'] }] }, 'پیش‌بینی رویگردانی'),
+    E('POST', '/retention/offers', { customer: 'c1', offer: 'gold_tier+ewa' }, { sent: true }),
+  ],
+  cityPay: [
+    E('POST', '/payments/micro', { merchant: 'tehran-metro', amount: 18000, sca: 'none_under_daily_cap' }, { status: 'paid', daily_spent: 72000, daily_cap: 300000 }, 'بدون رمز تا سقف روزانه'),
+  ],
+  home: [
+    E('GET', '/accounts', null, { items: [{ id: 'ACC-1', type: 'current', balance: '••••' }] }),
+    E('GET', '/payroll/earned', null, { earned: 14400000, available: 7200000, payday: '1405-10-01' }, 'حقوق کارکرده'),
+    E('GET', '/recommendations?explain=true', null, { items: [{ product: 'rent_guarantee', reason: 'monthly_rent_12M' }] }, 'پیشنهاد «برای تو» با دلیل'),
+  ],
   devPortal: [E('GET', '/catalog', null, { apis: 14, sandbox: 'https://sandbox.refah-bank.ir', auth: 'OAuth2 + mTLS' })],
   transfer: [
     E('GET', '/inquiry/owner?iban=IR..', null, { name: 'مریم هاشمی', bank: 'رفاه' }, 'استعلام صاحب حساب'),
@@ -170,9 +183,10 @@ export const PARTNERS = [
 
 // نگاشت چالش‌های رسمی اینوکاپ رفاتک ۱۴۰۵ به قابلیت‌های اپ
 export const CHALLENGES = [
-  [1, 'محاسبه‌ی ارزش طول عمر مشتری', 'سطح ماندگاری رفاه‌بازار و داده‌ی حقوق (پایه‌ی محاسبه)', 'groupBuy'],
+  [1, 'محاسبه‌ی ارزش طول عمر مشتری', 'نمای بانک: CLV به تفکیک گروه و هر مشتری', 'bankDash'],
+  [2, 'تحلیل رفتار مشتریان رویگردان', 'نمای بانک: هشدار رویگردانی با سیگنال رفتاری و اقدام نگه‌داشت', 'bankDash'],
   [3, 'تحلیل رفتار و توصیه به مشتری', 'کارنامه‌ی ماه، تورم شخصی، تقویم پول', 'reportCard'],
-  [4, 'معرفی خودکار محصول متناسب با رفتار', 'سه پیشنهاد کارنامه، پیشنهاد روش انتقال', 'reportCard'],
+  [4, 'معرفی خودکار محصول متناسب با رفتار', '«برای تو» در خانه، با دلیل شفاف؛ پیشنهادهای کارنامه', 'home'],
   [6, 'دستیار هوش مصنوعی', 'مشاور AvalAI در کارنامه‌ی ماه', 'reportCard'],
   [7, 'وام خرد بسیار سریع', 'حقوق کارکرده: برداشت فوری بی‌سود', 'ewa'],
   [8, 'وام روزانه', 'حقوق کارکرده: سقف هر روز کار بیشتر می‌شود', 'ewa'],
@@ -180,6 +194,7 @@ export const CHALLENGES = [
   [10, 'قرض فرد به فرد با تسهیلگری بانک', 'قرض‌نامه‌ی دوستانه، ضمانت جمعی', 'p2pLoan'],
   [11, 'خرید اعتباری زیر ۱ دقیقه', 'رفاه‌بازار: اعتبارسنجی آنی ۴ قسطی؛ پاسپورت حقوق', 'groupBuy'],
   [12, 'خرید گروهی با تسهیلگری بانک', 'رفاه‌بازار: ظرفیت محدود، رزرو با قفل مبلغ', 'groupBuy'],
+  [13, 'پرداخت خرد در موقعیت‌های شهری', 'پرداخت شهری: مترو، تاکسی، پارکینگ بدون رمز تا سقف روزانه', 'cityPay'],
   [14, 'ماندگاری بیشتر پول، تخفیف بیشتر', 'سطح نقره‌ای و طلایی رفاه‌بازار', 'groupBuy'],
   [15, 'صندوق‌های خانوادگی', 'صندوق دوستانه، دسترسی امانی', 'fund'],
   [16, 'تسهیم سود', 'پس‌انداز با سهم کارفرما', 'employerMatch'],

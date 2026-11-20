@@ -36,6 +36,8 @@ import P2PLoan from './screens/P2PLoan'
 import EmployerMatch from './screens/EmployerMatch'
 import MedicalInstallment from './screens/MedicalInstallment'
 import GroupBuy from './screens/GroupBuy'
+import BankDashboard from './screens/BankDashboard'
+import CityPay from './screens/CityPay'
 import { seedConsents } from './data/openApi'
 
 const SCREENS = {
@@ -86,6 +88,8 @@ const SCREENS = {
   employerMatch: EmployerMatch,
   medical: MedicalInstallment,
   groupBuy: GroupBuy,
+  bankDash: BankDashboard,
+  cityPay: CityPay,
 }
 const TABS = ['home', 'accounts', 'cards', 'profile']
 
